@@ -9,7 +9,6 @@ export default function Home() {
   const currentTime = new Date().toLocaleTimeString(); // Get current time
   return (
     <Layout>
-      <NavBar />
       <p className="mt-5 mb-2 text-center text-5xl font-serif font-thin ">
         Welcome to WeCare
       </p>
@@ -28,8 +27,8 @@ export default function Home() {
         {/* Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 px-10">
           {/* Staff Login Card */}
-          <Link href="/staff-login">
-            <div className="bg-blue-100 rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
+          <Link href="/staff">
+            <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
               <Image
                 src="/staff.png"
                 alt="Staff Login"
@@ -44,8 +43,8 @@ export default function Home() {
           </Link>
 
           {/* Consult Login Card */}
-          <Link href="/consult-login">
-            <div className="bg-green-100 rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
+          <Link href="/consultant">
+            <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
               <Image
                 src="/conslt.png"
                 alt="Consult Login"
@@ -60,8 +59,8 @@ export default function Home() {
           </Link>
 
           {/* Admin Login Card */}
-          <Link href="/admin-login">
-            <div className="bg-yellow-100 rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
+          <Link href="/admin">
+            <div className="rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center hover:shadow-3xl h-full">
               <Image
                 src="/admin.png"
                 alt="Admin Login"
