@@ -8,7 +8,7 @@ const ConsultPage = () => {
     <Layout>
       <div className="grid grid-cols-3 pt-10 gap-4 p-4">
         {/* First Row: 2 Cards */}
-        <Link href="/consultant/add-treatment">
+        <Link href="/consultant/view-patients">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
               src="/vet/doctor.png"

@@ -1,18 +1,69 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-const AddAppoimentpage = () => {
+const AddTreatmentpage = () => {
+  const router = useRouter();
+  const [doctors, setDoctors] = useState([]);
+  const [patients, setPatients] = useState([]);
   const [treatmentID, setTreatmentID] = useState("");
   const [date, setDate] = useState("");
   const [treatmentType, setTreatmentType] = useState("");
   const [illnessDescription, setIllnessDescription] = useState("");
   const [medicalPrescription, setMedicalPrescription] = useState("");
   const [prescribe, setPrescribe] = useState("");
-  const [doctorNic, setDoctorNic] = useState("");
+  const [selectedNic, setSelectedNic] = useState("");
   const [patientName, setPatientName] = useState("");
+  const [doctorNic, setDoctorNic] = useState("");
+  const [selectedPatientNic, setSelectedPatientNic] = useState("");
+  const [patientDetails, setPatientDetails] = useState(null);
+
+  const handleDoctorChange = (event) => {
+    const nic = event.target.value;
+    setSelectedNic(nic);
+
+    if (nic) {
+      // Fetch the selected doctor's details
+      axios
+        .get(`http://localhost:5001/doctor/nic/${nic}`)
+        .then((response) => {
+          setDoctorDetails(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            "There was an error fetching the doctor details!",
+            error
+          );
+        });
+    } else {
+      setDoctorDetails(null);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch the doctor data from the backend
+    axios
+      .get("http://localhost:5001/doctor/name")
+      .then((response) => {
+        setDoctors(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the doctors!", error);
+      });
+
+    // Fetch the patient data from the backend
+    axios
+      .get("http://localhost:5001/patient/name")
+      .then((response) => {
+        setPatients(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the patients!", error);
+      });
+  }, []);
 
   // Handle Save button click
   const handleSave = async () => {
@@ -41,6 +92,27 @@ const AddAppoimentpage = () => {
     } catch (error) {
       alert("Error adding treatment:", error);
       console.error("Error adding treatment:", error);
+    }
+  };
+  const handlePatientChange = (event) => {
+    const nic = event.target.value;
+    setSelectedPatientNic(nic);
+
+    if (nic) {
+      // Fetch the selected patient's details
+      axios
+        .get(`http://localhost:5001/patient/nic/${nic}`)
+        .then((response) => {
+          setPatientDetails(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            "There was an error fetching the patient details!",
+            error
+          );
+        });
+    } else {
+      setPatientDetails(null);
     }
   };
 
@@ -76,22 +148,59 @@ const AddAppoimentpage = () => {
           <h2 className="text-2xl p-4">Doctor Details</h2>
 
           <div className="flex flex-col p-4">
-            <select className="mt-2 p-2 w-full border rounded-lg text-black">
-              <option>Select a Doctor</option>
-              <option>Doctor 1</option>
-              <option>Doctor 2</option>
-              <option>Doctor 3</option>
+            <select
+              className="mt-2 p-2 w-full border rounded-lg text-gray-700"
+              value={selectedNic}
+              onChange={handleDoctorChange}
+            >
+              <option value="">Select a Doctor</option>
+              {doctors.map((doctor) => (
+                <option key={doctor.nic} value={doctor.nic}>
+                  {doctor.name}
+                </option>
+              ))}
             </select>
           </div>
 
           <h2 className="text-2xl p-4">Patient Details</h2>
           <div className="flex flex-col p-4">
-            <select className="mt-2 p-2 w-full border rounded-lg text-black">
-              <option>Patient 1</option>
-              <option>Patient 2</option>
-              <option>Patient 3</option>
+            <h6 className="text-xl font-bold mb-4">Search Patient By NIC</h6>
+            <select
+              className="mt-2 p-2 w-full border rounded-lg text-gray-700"
+              value={selectedPatientNic}
+              onChange={handlePatientChange}
+            >
+              <option value="">Select a Patient</option>
+              {patients.map((patient) => (
+                <option key={patient.nic} value={patient.nic}>
+                  {patient.name}
+                </option>
+              ))}
             </select>
           </div>
+          {patientDetails && (
+            <div className="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-100">
+              <h3 className="text-lg font-bold mb-2">{patientDetails.name}</h3>
+              <p>
+                <strong>Address:</strong> {patientDetails.address}
+              </p>
+              <p>
+                <strong>Email:</strong> {patientDetails.email}
+              </p>
+              <p>
+                <strong>Contact:</strong> {patientDetails.contact}
+              </p>
+              <p>
+                <strong>Gender:</strong> {patientDetails.gender}
+              </p>
+              <p>
+                <strong>Age:</strong> {patientDetails.age}
+              </p>
+              <p>
+                <strong>NIC:</strong> {patientDetails.nic}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Content Section */}
@@ -187,8 +296,8 @@ const AddAppoimentpage = () => {
                   type="text"
                   className="w-full p-2 border rounded-lg"
                   placeholder="Enter Doctor NIC"
-                  value={doctorNic}
-                  onChange={(e) => setDoctorNic(e.target.value)}
+                  value={selectedNic}
+                  onChange={(e) => setSelectedNic(e.target.value)}
                 />
               </div>
               <div className="mr-2 w-full">
@@ -225,4 +334,4 @@ const AddAppoimentpage = () => {
   );
 };
 
-export default AddAppoimentpage;
+export default AddTreatmentpage;

@@ -1,18 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import axios from "axios";
+import axios from "axios"; // Ensure you have axios installed for the delete functionality
 
-const StaffRegisterPage = () => {
+const PatientRegisterPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     address: "",
     email: "",
-    qualifications: "",
     contact: "",
-    age: "",
     gender: "",
     nic: "",
+    age: "",
   });
 
   const handleChange = (e) => {
@@ -47,34 +46,32 @@ const StaffRegisterPage = () => {
       name: "",
       address: "",
       email: "",
-      qualifications: "",
       contact: "",
       gender: "",
       nic: "",
-      password: "",
       age: "",
     });
   };
 
   const handleUpdate = (nic) => {
     try {
-      axios.put(`http://localhost:5001/staff/${nic}`, formData);
-      alert("Staff updated successfully!");
+      axios.put(`http://localhost:5001/patient/${nic}`, formData);
+      alert("patient updated successfully!");
       resetForm();
     } catch (error) {
-      console.error("Error updating Staff :", error);
-      alert("Error updating Staff ");
+      console.error("Error updating patient:", error);
+      alert("Error updating patient");
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/staff/${id}`);
-      alert("Staff deleted successfully!");
+      await axios.delete(`http://localhost:5001/patient/${id}`);
+      alert("patient deleted successfully!");
       resetForm();
     } catch (error) {
-      console.error("Error deleting Staff:", error);
-      alert("Error deleting Staff");
+      console.error("Error deleting patient:", error);
+      alert("Error deleting patient");
     }
   };
 
@@ -85,7 +82,7 @@ const StaffRegisterPage = () => {
     }
     try {
       const response = await fetch(
-        `http://localhost:5001/staff/nic/${formData.nic}`
+        `http://localhost:5001/patient/nic/${formData.nic}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -93,7 +90,6 @@ const StaffRegisterPage = () => {
           name: data.name,
           address: data.address,
           email: data.email,
-          qualifications: data.qualifications,
           contact: data.contact,
           gender: data.gender,
           nic: data.nic,
@@ -113,7 +109,7 @@ const StaffRegisterPage = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-6">
           <Image
-            src="/vet/Staff.png"
+            src="/vet/doctor.png"
             alt="Doctor"
             width={100}
             height={100}
@@ -192,6 +188,7 @@ const StaffRegisterPage = () => {
               required
             />
           </div>
+
           {/* Contact Field */}
           <div className="flex items-center mb-4">
             <label className="w-1/3 mr-4 text-right text-lg">Contact</label>
@@ -269,4 +266,4 @@ const StaffRegisterPage = () => {
   );
 };
 
-export default StaffRegisterPage;
+export default PatientRegisterPage;

@@ -21,7 +21,7 @@ const Staffpage = () => {
             <p>Patient Register</p>
           </div>
         </Link>
-        <Link href="staff/fix-appointment">
+        <Link href="staff/appoiment">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg flex flex-col items-center">
             <Image
               src="/vet/staff-ad.png"
@@ -45,8 +45,6 @@ const Staffpage = () => {
             <p>Issue Medicine</p>
           </div>
         </Link>
-
-    
       </div>
     </Layout>
   );
