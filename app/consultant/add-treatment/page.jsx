@@ -21,6 +21,8 @@ const AddTreatmentpage = () => {
   const [selectedPatientNic, setSelectedPatientNic] = useState("");
   const [patientDetails, setPatientDetails] = useState(null);
 
+  const [treatments, setTreatments] = useState([]);
+
   const handleDoctorChange = (event) => {
     const nic = event.target.value;
     setSelectedNic(nic);
@@ -65,35 +67,60 @@ const AddTreatmentpage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (selectedPatientNic) {
+      // Fetch appointments for the selected doctor
+      axios
+        .get(`http://localhost:5001/treatment/patient/${selectedPatientNic}`)
+        .then((response) => {
+          setTreatments(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            "There was an error fetching the appointments for this doctor!",
+            error
+          );
+        });
+    } else {
+      setTreatments([]);
+    }
+  }, [selectedPatientNic]);
+
   // Handle Save button click
   const handleSave = async () => {
     const treatmentData = {
+      id: treatmentID,
       prescribe,
       medicine_discription: medicalPrescription,
       Illness_description: illnessDescription,
       treatment_type_discription: treatmentType,
       date_time: date,
       patient_name: patientName,
-      doctorNic,
+      patientNic: selectedPatientNic,
+      doctorNic: selectedNic,
     };
+
+    console.log("Treatment Data:", treatmentData); // Log treatment data
 
     try {
       const response = await axios.post(
         "http://localhost:5001/treatment",
         treatmentData
       );
-      console.log(treatmentData);
+      console.log("Response:", response); // Log full response
+
       if (response.status === 201) {
         console.log("Treatment added:", response.data);
         alert("Treatment added successfully!");
-
-        clearForm();
+      } else {
+        console.log("Unexpected response status:", response.status);
       }
     } catch (error) {
-      alert("Error adding treatment:", error);
+      alert("Error adding treatment:", error.message);
       console.error("Error adding treatment:", error);
     }
   };
+
   const handlePatientChange = (event) => {
     const nic = event.target.value;
     setSelectedPatientNic(nic);
@@ -207,11 +234,63 @@ const AddTreatmentpage = () => {
         <div className="flex-grow p-6">
           {/* Patient History Section */}
           <div className="border-2 border-gray-300 p-4 rounded-lg mb-6">
-            <h2 className="text-xl font-bold mb-4">Patient History</h2>
-            <textarea
-              className="w-full h-40 p-2 border rounded-lg"
-              placeholder="Enter patient's medical history..."
-            ></textarea>
+            {/* Appointment Table (Now placed below all other sections) */}
+            <div className="w-full p-6 mt-6">
+              {/* Wrapper Box with Border and Rounded Corners */}
+              <div className="border border-gray-300 rounded-lg p-4">
+                <table className="w-full table-auto border border-gray-300 rounded-lg">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="border border-gray-300 p-4 text-left">
+                        Treatment Number
+                      </th>
+                      <th className="border border-gray-300 p-4 text-left">
+                        Date
+                      </th>
+                      <th className="border border-gray-300 p-4 text-left">
+                        Prescribe
+                      </th>
+                      <th className="border border-gray-300 p-4 text-left">
+                        Patient Name
+                      </th>
+                      <th className="border border-gray-300 p-4 text-left">
+                        Treatment Type
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* Map through treatments to display each one */}
+                    {treatments.length > 0 ? (
+                      treatments.map((treatment) => (
+                        <tr key={treatment.id}>
+                          <td className="border border-gray-300 p-4">
+                            {treatment.id}
+                          </td>
+                          <td className="border border-gray-300 p-4">
+                            {new Date(treatment.date_time).toLocaleString()}
+                          </td>
+                          <td className="border border-gray-300 p-4">
+                            {treatment.prescribe}
+                          </td>
+                          <td className="border border-gray-300 p-4">
+                            {treatment.patient_name}
+                          </td>
+                          <td className="border border-gray-300 p-4">
+                            {treatment.treatment_type_discription}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td className="border border-gray-300 p-4" colSpan="5">
+                          No treatments available
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
 
           {/* Add Treatment Section */}
