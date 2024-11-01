@@ -12,8 +12,8 @@ const Staffpage = () => {
         <Link href="/staff/patient-register">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
-              src="/vet/doctor.png"
-              alt="Doctor Register"
+              src="/care/patient.png"
+              alt="patient Register"
               width={100}
               height={100}
               className="mb-4"
@@ -24,8 +24,8 @@ const Staffpage = () => {
         <Link href="staff/appoiment">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg flex flex-col items-center">
             <Image
-              src="/vet/staff-ad.png"
-              alt="Staff Register"
+              src="/care/Book_check_fill.png"
+              alt="Fix Appoimnet"
               width={100}
               height={100}
               className="mb-4"
@@ -33,10 +33,10 @@ const Staffpage = () => {
             <p>Fix Appoimnet</p>
           </div>
         </Link>
-        <Link href="staff/issue-medicine">
+        <Link href="staff/inventory">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
-              src="/vet/staff-ad.png"
+              src="/care/issue.png"
               alt="Staff Register"
               width={100}
               height={100}

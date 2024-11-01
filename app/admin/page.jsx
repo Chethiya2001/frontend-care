@@ -12,7 +12,7 @@ const Adminpage = () => {
         <Link href="/admin/doctor-register">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
-              src="/vet/doctor.png"
+              src="/care/doctor.png"
               alt="Doctor Register"
               width={100}
               height={100}
@@ -24,7 +24,7 @@ const Adminpage = () => {
         <Link href="/admin/staff-register">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg flex flex-col items-center">
             <Image
-              src="/vet/staff-ad.png"
+              src="/care/staff-reg.png"
               alt="Staff Register"
               width={100}
               height={100}
@@ -36,7 +36,7 @@ const Adminpage = () => {
         <Link href="/admin/treatmnet-history">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
-              src="/vet/staff-ad.png"
+              src="/care/view-treatment.png"
               alt="Staff Register"
               width={100}
               height={100}
@@ -51,7 +51,7 @@ const Adminpage = () => {
           <Link href="/admin/financial-recodes">
             <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg   flex flex-col items-center">
               <Image
-                src="/vet/money-bag_2953423.png"
+                src="/care/finance.png"
                 alt="Financial Records"
                 width={100}
                 height={100}

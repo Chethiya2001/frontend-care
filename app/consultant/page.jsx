@@ -11,8 +11,8 @@ const ConsultPage = () => {
         <Link href="/consultant/view-patients">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
-              src="/vet/doctor.png"
-              alt="Doctor Register"
+              src="/care/add-treatment.png"
+              alt="Add Treatment"
               width={100}
               height={100}
               className="mb-4"
@@ -23,8 +23,8 @@ const ConsultPage = () => {
         <Link href="/consultant/treatment-history">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
-              src="/vet/doctor.png"
-              alt="Doctor Register"
+              src="/care/view-treatment.png"
+              alt="Treatment History"
               width={100}
               height={100}
               className="mb-4"
