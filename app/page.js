@@ -27,7 +27,7 @@ export default function Home() {
         {/* Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 px-10">
           {/* Staff Login Card */}
-          <Link href="/staff">
+          <Link href="/login">
             <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
               <Image
                 src="/staff.png"
@@ -43,7 +43,7 @@ export default function Home() {
           </Link>
 
           {/* Consult Login Card */}
-          <Link href="/consultant">
+          <Link href="/login">
             <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
               <Image
                 src="/conslt.png"
@@ -59,7 +59,7 @@ export default function Home() {
           </Link>
 
           {/* Admin Login Card */}
-          <Link href="/admin">
+          <Link href="/login">
             <div className="rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center hover:shadow-3xl h-full">
               <Image
                 src="/admin.png"
