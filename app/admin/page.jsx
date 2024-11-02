@@ -1,8 +1,10 @@
+'use client';
 import React from "react";
 import Layout from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
+import withAuth from "@/utils/withAuth";
 
 const Adminpage = () => {
   return (
@@ -33,7 +35,7 @@ const Adminpage = () => {
             <p>Staff Register</p>
           </div>
         </Link>
-        <Link href="/admin/treatmnet-history">
+        <Link href="/consultant/treatment-history">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
               src="/care/view-treatment.png"
@@ -66,4 +68,4 @@ const Adminpage = () => {
   );
 };
 
-export default Adminpage;
+export default  withAuth(Adminpage, ["admin"]);

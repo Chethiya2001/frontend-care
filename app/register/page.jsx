@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 export default function Register() {
   const [roles, setRoles] = useState([]);
@@ -41,7 +41,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/auth", {
+      const response = await fetch("http://localhost:5001/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

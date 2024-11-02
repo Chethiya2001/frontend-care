@@ -7,6 +7,7 @@ export default function Home() {
   const options = { year: "numeric", month: "long", day: "numeric" }; // Formatting options
   const currentDate = new Date().toLocaleDateString(undefined, options); // Get current date in words
   const currentTime = new Date().toLocaleTimeString(); // Get current time
+
   return (
     <Layout>
       <p className="mt-5 mb-2 text-center text-5xl font-serif font-thin ">
@@ -75,6 +76,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
+      
     </Layout>
   );
 }

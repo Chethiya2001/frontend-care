@@ -80,7 +80,7 @@ const FinancialRecodespage = () => {
         </div>
         <div className="bg-white p-5 rounded shadow">
           <h2 className="text-xl font-semibold mb-3">Total Income</h2>
-          <p className="text-3xl font-bold">$5,000</p>
+          <p className="text-3xl font-bold">LKR.5,000</p>
         </div>
       </div>
 
@@ -104,7 +104,7 @@ const FinancialRecodespage = () => {
                 <td className="px-4 py-2 border-b">
                   {transaction.description}
                 </td>
-                <td className="px-4 py-2 border-b">${transaction.amount}</td>
+                <td className="px-4 py-2 border-b">LKR.{transaction.amount}</td>
               </tr>
             ))}
           </tbody>

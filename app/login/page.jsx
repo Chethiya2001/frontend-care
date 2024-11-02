@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -29,10 +29,24 @@ export default function Login() {
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
 
+        console.log("Login successful");
+
+        // Print the token and role in the console
+        console.log("Token:", token);
+        console.log("Role:", role);
+
+        alert("Login successful");
+
         // Role-based redirection
         if (role === "admin") {
-          router.push("/");
+          router.push("/admin");
+        } else if (role === "staff") {
+          router.push("/staff");
+        } else if (role === "doctor") {
+          router.push("/consultant");
         } else {
+          // Fallback for unknown role
+          alert("Unknown role. Redirecting to home.");
           router.push("/");
         }
       } else {

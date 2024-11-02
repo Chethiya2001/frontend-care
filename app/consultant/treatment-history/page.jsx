@@ -4,6 +4,14 @@ import axios from "axios";
 
 const TreatmentHistoryPage = () => {
   const [treatmentHistory, setTreatmentHistory] = useState([]);
+  const [selectedTreatment, setSelectedTreatment] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateData, setUpdateData] = useState({
+    prescribe: "",
+    medicine_description: "",
+    illness_description: "",
+    treatment_type_description: "",
+  });
 
   // Fetch treatment history from API
   useEffect(() => {
@@ -35,10 +43,42 @@ const TreatmentHistoryPage = () => {
     }
   };
 
-  // Function to handle update (redirect or modal can be implemented as needed)
-  const handleUpdate = (id) => {
-    // Redirect to update page or open modal for updating treatment
-    alert(`Update treatment with ID: ${id}`);
+  // Function to handle update
+  const handleUpdate = (treatment) => {
+    setUpdateData({
+      prescribe: treatment.prescribe,
+      medicine_description: treatment.medicine_discription,
+      illness_description: treatment.Illness_description,
+      treatment_type_description: treatment.treatment_type_discription,
+    });
+    setSelectedTreatment(treatment.id);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedTreatment(null);
+  };
+
+  const handleSubmitUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:5001/treatment/${selectedTreatment}`, {
+        ...updateData,
+      });
+      // Update the treatment history in state
+      setTreatmentHistory((prev) =>
+        prev.map((treatment) =>
+          treatment.id === selectedTreatment
+            ? { ...treatment, ...updateData }
+            : treatment
+        )
+      );
+      alert("Treatment updated successfully!");
+      handleModalClose();
+    } catch (error) {
+      alert(`Error updating treatment: ${error.message}`);
+    }
   };
 
   return (
@@ -82,14 +122,14 @@ const TreatmentHistoryPage = () => {
                 </td>
                 <td className="border border-black p-2">
                   <button
-                    onClick={() => handleUpdate(treatment.id)}
-                    className="text-blue-500 hover:underline mr-2"
+                    onClick={() => handleUpdate(treatment)}
+                    className="text-blue-500 hover:underline mr-2 p-2 border border-blue-500 rounded"
                   >
                     Update
                   </button>
                   <button
                     onClick={() => handleDelete(treatment.id)}
-                    className="text-red-500 hover:underline"
+                    className="text-red-500 hover:underline p-2 border border-red-500 rounded"
                   >
                     Delete
                   </button>
@@ -99,6 +139,89 @@ const TreatmentHistoryPage = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal for Updating Treatment */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg">
+            <h3 className="text-xl font-bold mb-4">Update Treatment</h3>
+            <form onSubmit={handleSubmitUpdate}>
+              <div className="mb-4">
+                <label className="block mb-2">Prescribe:</label>
+                <input
+                  type="text"
+                  value={updateData.prescribe}
+                  onChange={(e) =>
+                    setUpdateData({ ...updateData, prescribe: e.target.value })
+                  }
+                  className="border border-gray-300 p-2 w-full"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">Medicine Description:</label>
+                <input
+                  type="text"
+                  value={updateData.medicine_description}
+                  onChange={(e) =>
+                    setUpdateData({
+                      ...updateData,
+                      medicine_description: e.target.value,
+                    })
+                  }
+                  className="border border-gray-300 p-2 w-full"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">Illness Description:</label>
+                <input
+                  type="text"
+                  value={updateData.illness_description}
+                  onChange={(e) =>
+                    setUpdateData({
+                      ...updateData,
+                      illness_description: e.target.value,
+                    })
+                  }
+                  className="border border-gray-300 p-2 w-full"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block mb-2">Treatment Type:</label>
+                <input
+                  type="text"
+                  value={updateData.treatment_type_description}
+                  onChange={(e) =>
+                    setUpdateData({
+                      ...updateData,
+                      treatment_type_description: e.target.value,
+                    })
+                  }
+                  className="border border-gray-300 p-2 w-full"
+                  required
+                />
+              </div>
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  onClick={handleModalClose}
+                  className="bg-gray-300 hover:bg-gray-400 p-2 rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white hover:bg-blue-600 p-2 rounded"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AddAppoimentpage = () => {
   const [appointmentNumber, setAppointmentNumber] = useState("");
@@ -29,6 +31,35 @@ const AddAppoimentpage = () => {
   const [appointments, setAppointments] = useState([]);
   const [doctorCharge, setDoctorCharge] = useState("");
   const [hospitalCharge, setHospitalCharge] = useState("");
+
+  const handlePrint = () => {
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Payment Details</title>
+          <style>
+            body { font-family: Arial, sans-serif; }
+            h2 { text-align: center; }
+            .details { margin: 20px; }
+            .details div { margin-bottom: 10px; }
+          </style>
+        </head>
+        <body>
+          <h2>Payment Details</h2>
+          <div class="details">
+            <div><strong>Charge Doctor:</strong> ${doctorCharge}</div>
+            <div><strong>Charge Hospital:</strong> ${hospitalCharge}</div>
+            <div><strong>Full Amount:</strong> $${(
+              Number(hospitalCharge) + Number(doctorCharge)
+            ).toFixed(2)}</div>
+          </div>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+  };
 
   const handlePayment = async () => {
     // Prepare the payment data
@@ -415,8 +446,6 @@ const AddAppoimentpage = () => {
               </table>
             </div>
           </div>
-
-          {/* Payment Section */}
           <div className="w-full p-6 mt-6">
             {/* Wrapper Box with Border and Rounded Corners */}
             <div className="border border-gray-300 rounded-lg p-4 flex justify-between items-start">
@@ -466,15 +495,23 @@ const AddAppoimentpage = () => {
                   <p className="text-xl font-semibold text-blue-600">
                     $
                     {(Number(hospitalCharge) + Number(doctorCharge)).toFixed(2)}
-                  </p>{" "}
-                  {/* Replace with dynamic amount */}
+                  </p>
                 </div>
-                <button
-                  className="bg-blue-500 text-white px-6 py-2 rounded"
-                  onClick={handlePayment}
-                >
-                  Make Payment
-                </button>
+                <div className="flex items-center">
+                  <button
+                    className="bg-blue-500 text-white px-6 py-2 rounded mr-4"
+                    onClick={handlePayment}
+                  >
+                    Make Payment
+                  </button>
+                  <button
+                    className="bg-gray-200 text-gray-800 px-4 py-2 rounded flex items-center"
+                    onClick={handlePrint}
+                  >
+                    <FontAwesomeIcon icon={faPrint} className="mr-2" />
+                    Print
+                  </button>
+                </div>
               </div>
             </div>
           </div>
