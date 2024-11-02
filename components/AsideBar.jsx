@@ -11,6 +11,8 @@ const AsideBar = ({ role }) => {
     // Clear local storage and redirect to the login page
     localStorage.clear();
     router.push("/login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
   };
 
   useEffect(() => {
@@ -27,47 +29,50 @@ const AsideBar = ({ role }) => {
           <li>
             <Link
               href="/"
-              className="block p-4 hover:border-l-4 hover:border-black hover:bg-transparent transition duration-200"
+              className="block p-4  hover:border-l-4 hover:border-black"
             >
               Home
             </Link>
           </li>
+
           {role === "admin" && (
             <li>
               <Link
                 href="/admin"
-                className="block p-4 hover:border-l-4 hover:border-black hover:bg-transparent transition duration-200"
+                className="block p-4  hover:border-l-4 hover:border-black"
               >
                 Admin
               </Link>
             </li>
           )}
+
           {role === "consultant" && (
             <li>
               <Link
                 href="/consultant"
-                className="block p-4 hover:border-l-4 hover:border-black hover:bg-transparent transition duration-200"
+                className="block p-4  hover:border-l-4 hover:border-black"
               >
                 Doctor
               </Link>
             </li>
           )}
+
           {role === "staff" && (
             <li>
               <Link
                 href="/staff"
-                className="block p-4 hover:border-l-4 hover:border-black hover:bg-transparent transition duration-200"
+                className="block p-4 hover:border-l-4 hover:border-black"
               >
                 Staff
               </Link>
             </li>
           )}
-          {/* Show Logout if user is logged in, else show Login */}
+
           {localStorage.getItem("token") ? (
             <li>
               <button
                 onClick={handleLogout}
-                className="block w-full text-left p-4 hover:border-l-4 hover:border-black hover:bg-transparent transition duration-200"
+                className="block w-full text-left p-4 hover:border-l-4 hover:border-black"
               >
                 Logout
               </button>
@@ -76,7 +81,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/login"
-                className="block p-4 hover:border-l-4 hover:border-black hover:bg-transparent transition duration-200"
+                className="block p-4 hover:border-l-4 hover:border-black"
               >
                 Login
               </Link>
