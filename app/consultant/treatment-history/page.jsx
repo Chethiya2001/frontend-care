@@ -123,13 +123,13 @@ const TreatmentHistoryPage = () => {
                 <td className="border border-black p-2">
                   <button
                     onClick={() => handleUpdate(treatment)}
-                    className="text-blue-500 hover:underline mr-2 p-2 border border-blue-500 rounded"
+                    className="text-gray-500 hover:underline mr-2 p-2 border border-gray-500 rounded"
                   >
                     Update
                   </button>
                   <button
                     onClick={() => handleDelete(treatment.id)}
-                    className="text-red-500 hover:underline p-2 border border-red-500 rounded"
+                    className="text-gray-500 hover:underline p-2 border border-gray-500 rounded"
                   >
                     Delete
                   </button>
@@ -213,7 +213,7 @@ const TreatmentHistoryPage = () => {
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white hover:bg-blue-600 p-2 rounded"
+                  className="bg-gray-500 text-white hover:bg-gray-600 p-2 rounded"
                 >
                   Save
                 </button>

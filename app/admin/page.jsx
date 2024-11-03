@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import Layout from "@/components/layout";
 import Image from "next/image";
@@ -68,4 +68,4 @@ const Adminpage = () => {
   );
 };
 
-export default  withAuth(Adminpage, ["admin"]);
+export default withAuth(Adminpage, ["admin"]);

@@ -23,9 +23,10 @@ const AsideBar = ({ role }) => {
   }, [router]);
 
   return (
-    <div className="h-screen w-64 flex flex-col py-6 border-r border-black">
+    <div className="h-screen w-64 pt-80 flex flex-col py-6 border-r border-black">
       <nav className="flex-1">
-        <ul className="space-y-2 mt-30">
+        <ul className="space-y-2  mt-30">
+         
           <li>
             <Link
               href="/"

@@ -209,9 +209,9 @@ const AddAppoimentpage = () => {
       </nav>
 
       {/* Sidebar Section */}
-      <div className="flex h-screen">
+      <div className="flex h-screen ">
         {/* Doctor and Patient Selection */}
-        <div className="w-80 border-r-2 border-r-black text-black font-bold text-lg flex flex-col py-6 justify-start h-full">
+        <div className="flex-1 w-64 flex flex-col py-6 border-r border-black">
           <h2 className="text-2xl p-1 mb-4">Select Doctor</h2>
 
           <div className="flex flex-col p-4">

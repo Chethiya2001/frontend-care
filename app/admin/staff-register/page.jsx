@@ -115,7 +115,7 @@ const StaffRegisterPage = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-6">
           <Image
-            src="/vet/Staff.png"
+            src="/staff.png"
             alt="Doctor"
             width={100}
             height={100}
@@ -271,26 +271,26 @@ const StaffRegisterPage = () => {
           <div className="flex justify-between mt-6">
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-3 text-lg rounded-lg hover:bg-blue-600"
+              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Register
             </button>
             <button
               onClick={() => handleUpdate(formData.nic)}
-              className="w-full bg-yellow-500 text-white py-3 text-lg rounded-lg hover:bg-yellow-600 mx-1"
+              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Update
             </button>
             <button
               onClick={() => handleDelete(formData.nic)}
-              className="w-full bg-red-500 text-white py-3 text-lg rounded-lg hover:bg-red-600 mx-1"
+              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Delete
             </button>
             <button
               onClick={handleSearch}
               type="button" // Ensure this button does not submit the form
-              className="w-full bg-green-500 text-white py-3 text-lg rounded-lg hover:bg-green-600 mx-1"
+              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Search
             </button>

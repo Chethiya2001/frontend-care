@@ -33,7 +33,7 @@ const Staffpage = () => {
             <p>Fix Appoimnet</p>
           </div>
         </Link>
-        <Link href="staff/inventory">
+        <Link href="/staff/inventrory">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
               src="/care/issue.png"
