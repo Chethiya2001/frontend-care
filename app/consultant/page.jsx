@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ConsultPage = () => {
+  
   return (
     <Layout>
       <div className="grid grid-cols-3 pt-10 gap-4 p-4">
