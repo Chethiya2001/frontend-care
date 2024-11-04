@@ -1,35 +1,16 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Register() {
-  const [roles, setRoles] = useState([]);
-
-  // Fetch roles on component mount
-  useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        const response = await fetch("http://localhost:5001/role");
-        if (!response.ok) {
-          throw new Error("Failed to fetch roles");
-        }
-        const roleData = await response.json();
-        setRoles(roleData); // Set fetched roles
-      } catch (error) {
-        alert(`Error fetching roles: ${error.message}`);
-      }
-    };
-
-    fetchRoles();
-  }, []);
+ 
   const [formData, setFormData] = useState({
     name: "",
     address: "",
     email: "",
     password: "",
     contact: "",
-    nic: "",
-    role: "",
+    nic: ""
   });
 
   const router = useRouter();
@@ -67,7 +48,7 @@ export default function Register() {
         className="bg-white p-8 rounded shadow-md w-96"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-bold mb-6">Register</h2>
+        <h2 className="text-2xl font-bold mb-6">Admin Register</h2>
         <input
           type="text"
           name="name"
@@ -122,24 +103,7 @@ export default function Register() {
           onChange={handleChange}
           required
         />
-        {/* Dropdown for selecting role */}
-        <select
-          name="role"
-          className="w-full p-2 mb-4 border"
-          value={formData.role}
-          onChange={handleChange}
-          required
-        >
-          <option value="" disabled>
-            Select Role
-          </option>
-          {roles.map((role) => (
-            <option key={role.id} value={role.name}>
-              {role.name}
-            </option>
-          ))}
-        </select>
-
+        
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded"

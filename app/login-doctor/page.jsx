@@ -14,7 +14,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5001/auth/login", {
+      const response = await fetch("http://localhost:5001/doctor/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,9 +37,8 @@ export default function Login() {
 
         alert("Login successful");
 
-        // Role-based redirection
-        if (role === "admin") {
-          router.push("/admin");
+        if (role === "doctor") {
+          router.push("/consultant");
         } else {
           // Fallback for unknown role
           alert("Unknown role. Redirecting to home.");
@@ -47,7 +46,7 @@ export default function Login() {
         }
       } else {
         const errorData = await response.json();
-        alert(`Login failed: check email and password`);
+        alert(`Login failed: check email and password`, errorData.message);
       }
     } catch (error) {
       alert(`Login failed: Please Register first`);
@@ -85,12 +84,7 @@ export default function Login() {
         >
           Login
         </button>
-        <p className="text-center mt-4">
-          Don't have an account?{" "}
-          <a href="/register" className="text-blue-500">
-            Register
-          </a>
-        </p>
+        
       </form>
     </div>
   );

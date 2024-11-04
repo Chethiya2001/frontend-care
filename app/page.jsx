@@ -1,5 +1,4 @@
 import Layout from "@/components/layout";
-import NavBar from "@/components/NavBar";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +27,7 @@ export default function Home() {
         {/* Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 px-10">
           {/* Staff Login Card */}
-          <Link href="/login">
+          <Link href="/login-staff">
             <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
               <Image
                 src="/staff.png"
@@ -44,7 +43,7 @@ export default function Home() {
           </Link>
 
           {/* Consult Login Card */}
-          <Link href="/login">
+          <Link href="/login-doctor">
             <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
               <Image
                 src="/conslt.png"
@@ -76,7 +75,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      
     </Layout>
   );
 }
