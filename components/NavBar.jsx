@@ -10,19 +10,53 @@ const NavBar = () => {
   return (
     <nav className="flex flex-col items-center pt-5">
       <div className="flex-grow"></div> {/* This creates the white space */}
-      {/* Back and Forward Buttons */}
       <div className="absolute top-5 left-5 flex space-x-2">
+        {/* Back Button */}
         <button
           onClick={() => router.back()}
           className="text-lg font-bold p-2 rounded hover:bg-gray-200"
         >
-          &#8592; 
+          &#8592;
         </button>
+
+        {/* Forward Button */}
         <button
           onClick={() => router.forward()}
           className="text-lg font-bold p-2 rounded hover:bg-gray-200"
         >
           &#8594;
+        </button>
+      </div>
+      {/* Home Button - Positioned on the right */}
+      <div className="absolute top-5 right-5">
+        <button
+          onClick={() => router.push("/")}
+          className="text-lg font-bold p-2 rounded hover:bg-gray-200 flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path d="M10 3l-7 7h2v7h10v-7h2l-7-7z" />
+          </svg>
+        </button>
+      </div>
+      {/* Home Button - Positioned on the right */}
+      <div className="absolute top-5 right-5">
+        <button
+          onClick={() => router.push("/")}
+          className="text-lg font-bold p-2 rounded hover:bg-gray-200 flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path d="M10 3l-7 7h2v7h10v-7h2l-7-7z" />
+          </svg>
         </button>
       </div>
       <Image

@@ -39,7 +39,7 @@ export default function Login() {
 
         // Role-based redirection
         if (role === "admin") {
-          router.push("/admin");
+          router.push("/");
         } else {
           // Fallback for unknown role
           alert("Unknown role. Redirecting to home.");

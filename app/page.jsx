@@ -27,52 +27,45 @@ export default function Home() {
         {/* Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 px-10">
           {/* Staff Login Card */}
-          <Link href="/login-staff">
-            <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
-              <Image
-                src="/staff.png"
-                alt="Staff Login"
-                width={150}
-                height={150}
-                className="object-cover"
-              />
-              <h3 className="text-xl font-bold text-center mt-4">
-                Staff Login
-              </h3>
-            </div>
-          </Link>
+
+          <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
+            <Image
+              src="/staff.png"
+              alt="Staff Login"
+              width={150}
+              height={150}
+              className="object-cover"
+            />
+            <h3 className="text-xl font-bold text-center mt-4">Staff Login</h3>
+          </div>
 
           {/* Consult Login Card */}
-          <Link href="/login-doctor">
-            <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
-              <Image
-                src="/conslt.png"
-                alt="Consult Login"
-                width={150}
-                height={150}
-                className="object-cover"
-              />
-              <h3 className="text-xl font-bold text-center mt-4">
-                Consult Login
-              </h3>
-            </div>
-          </Link>
+
+          <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
+            <Image
+              src="/conslt.png"
+              alt="Consult Login"
+              width={150}
+              height={150}
+              className="object-cover"
+            />
+            <h3 className="text-xl font-bold text-center mt-4">
+              Consult Login
+            </h3>
+          </div>
 
           {/* Admin Login Card */}
-          <Link href="/login">
-            <div className="rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center hover:shadow-3xl h-full">
-              <Image
-                src="/admin.png"
-                alt="Admin Login"
-                width={150}
-                height={150}
-                className="object-cover"
-              />
-              <h3 className="text-xl font-bold text-center mt-4">
-                Admin Login
-              </h3>
-            </div>
-          </Link>
+
+          <div className="rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center hover:shadow-3xl h-full">
+            <Image
+              src="/admin.png"
+              alt="Admin Login"
+              width={150}
+              height={150}
+              className="object-cover"
+            />
+            <h3 className="text-xl font-bold text-center mt-4">Admin Login</h3>
+          </div>
         </div>
       </div>
     </Layout>

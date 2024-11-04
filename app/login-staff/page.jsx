@@ -24,21 +24,23 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        const { token, role } = data;
+        const { token, role, nic } = data;
 
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
+        localStorage.setItem("nic", nic);
 
         console.log("Login successful");
 
         // Print the token and role in the console
         console.log("Token:", token);
         console.log("Role:", role);
+        console.log("NIC:", nic);
 
         alert("Login successful");
 
         if (role === "staff") {
-          router.push("/staff");
+          router.push("/");
         } else {
           // Fallback for unknown role
           alert("Unknown role. Redirecting to home.");
@@ -59,7 +61,7 @@ export default function Login() {
         className="bg-white p-8 rounded shadow-md w-96"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-bold mb-6">Login</h2>
+        <h2 className="text-2xl font-bold mb-6">Login Staff</h2>
         <input
           type="email"
           name="email"
@@ -84,7 +86,6 @@ export default function Login() {
         >
           Login
         </button>
-        
       </form>
     </div>
   );

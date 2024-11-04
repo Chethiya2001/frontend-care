@@ -11,32 +11,48 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
-    setRole(storedRole);
+    if (storedRole) {
+      setRole(storedRole);
+    }
   }, []);
 
   const handleProfileClick = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("No user logged in");
-      return;
-    }
-
     try {
-      const response = await fetch("http://localhost:5001/auth/user", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`, // Set the token in the Authorization header
-          "Content-Type": "application/json",
-        },
-      });
+      const role = localStorage.getItem("role"); // Retrieve the role from local storage
+      const nic = localStorage.getItem("nic"); // Retrieve the NIC from local storage
 
-      if (response.ok) {
-        const data = await response.json();
-        setUserData(data); // Store the fetched user data
-        setShowProfile(true); // Show the user profile
-      } else {
-        alert("Failed to fetch user data");
+      // Check if NIC is available
+      if (!nic) {
+        console.error("NIC not found in local storage");
+        return; // Exit if NIC is not found
       }
+
+      let url;
+
+      // Determine the URL based on user role
+      if (role === "doctor") {
+        url = `http://localhost:5001/doctor/nic/${nic}`;
+      } else if (role === "staff") {
+        url = `http://localhost:5001/staff/nic/${nic}`;
+      } else if (role === "auth") {
+        url = `http://localhost:5001/auth/nic/${nic}`;
+      } else {
+        console.error("Invalid user role");
+        return; // Exit the function if the role is invalid
+      }
+
+      // Fetch data from the determined URL
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+
+      // Store the fetched user data
+      setUserData(data);
+      setShowProfile(true); // Show the user profile
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -46,8 +62,10 @@ export default function Layout({ children }) {
     <div>
       <NavBar />
       <div className="flex">
-        <AsideBar role={{ role }} />
+        {/* Pass role as a direct value */}
+        <AsideBar role={role} />
         <main className="flex-1 p-4">{children}</main>
+
         {/* Right User Info Sidebar */}
         <div className="h-screen w-44 flex flex-col py-6 border-l border-black bg-white-100">
           <h2 className="text-xl font-bold text-center">User Info</h2>
@@ -63,6 +81,7 @@ export default function Layout({ children }) {
               <p className="text-gray-500">No user logged in</p>
             )}
           </div>
+
           {/* Display User Data when showProfile is true */}
           {showProfile && userData && (
             <div className="mt-4 p-4 border rounded bg-gray-200">
