@@ -10,7 +10,7 @@ const AsideBar = ({ role }) => {
   const handleLogout = () => {
     // Clear local storage and redirect to the login page
     localStorage.clear();
-    router.push("/login");
+    router.push("/");
     localStorage.removeItem("token");
     localStorage.removeItem("role");
   };

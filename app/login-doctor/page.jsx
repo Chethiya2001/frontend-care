@@ -21,6 +21,7 @@ export default function Login() {
         },
         body: JSON.stringify(formData),
       });
+      console.log(formData);
 
       if (response.ok) {
         const data = await response.json();
@@ -84,7 +85,6 @@ export default function Login() {
         >
           Login
         </button>
-        
       </form>
     </div>
   );
