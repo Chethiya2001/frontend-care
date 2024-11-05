@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import NavBar from "@/components/NavBar";
 
 const AddTreatmentpage = () => {
   const router = useRouter();
@@ -33,6 +34,7 @@ const AddTreatmentpage = () => {
         .get(`http://localhost:5001/doctor/nic/${nic}`)
         .then((response) => {
           setDoctorDetails(response.data);
+          setTreatments(response.data);
         })
         .catch((error) => {
           console.error(
@@ -42,6 +44,7 @@ const AddTreatmentpage = () => {
         });
     } else {
       setDoctorDetails(null);
+      setTreatments([]);
     }
   };
 
@@ -68,10 +71,11 @@ const AddTreatmentpage = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedPatientNic) {
+    if (selectedNic) {
       // Fetch appointments for the selected doctor
+      console.log("Selected NIC:", selectedNic);
       axios
-        .get(`http://localhost:5001/treatment/patient/${selectedPatientNic}`)
+        .get(`http://localhost:5001/treatment/doctor/${selectedNic}`)
         .then((response) => {
           setTreatments(response.data);
         })
@@ -84,7 +88,7 @@ const AddTreatmentpage = () => {
     } else {
       setTreatments([]);
     }
-  }, [selectedPatientNic]);
+  }, [selectedNic]);
 
   // Handle Save button click
   const handleSave = async () => {
@@ -162,17 +166,13 @@ const AddTreatmentpage = () => {
   return (
     <div>
       {/* Header / Title */}
-      <nav className="flex flex-col items-center pt-4 ">
-        <div className="flex-grow"></div> {/* White space */}
-        <p className="mt-2 text-center text-3xl font-bold">Treatment</p>
-        <div className="border-b border-black w-full mt-10" />
-      </nav>
+      <NavBar hideTitle={true} title="Add Treatment" />
 
       {/* Sidebar Section */}
       <div className="flex h-screen">
         {/* Doctor and Patient Selection */}
         <div className="w-80 border-r-2 border-r-black text-black font-bold text-lg flex flex-col py-6 justify-start">
-          <h2 className="text-2xl p-4">Doctor Details</h2>
+          <h2 className="text-2xl p-4">Select Doctor</h2>
 
           <div className="flex flex-col p-4">
             <select
@@ -189,9 +189,8 @@ const AddTreatmentpage = () => {
             </select>
           </div>
 
-          <h2 className="text-2xl p-4">Patient Details</h2>
+          <h2 className="text-2xl p-4">Add Patient</h2>
           <div className="flex flex-col p-4">
-            <h6 className="text-xl font-bold mb-4">Search Patient By NIC</h6>
             <select
               className="mt-2 p-2 w-full border rounded-lg text-gray-700"
               value={selectedPatientNic}

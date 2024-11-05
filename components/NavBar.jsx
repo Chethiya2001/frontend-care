@@ -4,7 +4,7 @@ import Image from "next/image";
 import { BiArrowBack, BiArrowForward } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 
-const NavBar = () => {
+const NavBar = ({ title, hideTitle }) => {
   const router = useRouter();
 
   return (
@@ -66,8 +66,13 @@ const NavBar = () => {
         height={50}
         className="mx-auto"
       />
-      <p className="mt-2 text-center text-lg font-bold">WeCare</p>
-      <p className=" text-center  font-medium">We Care Always</p>
+      {!hideTitle && (
+        <>
+          <p className="mt-2 text-center text-lg font-bold">WeCare</p>
+          <p className="text-center font-medium">We Care Always</p>
+        </>
+      )}
+      <p className="text-center pt-2 font-light">{title}</p>
       <div className="border-b w-full mt-5 border-black " />
     </nav>
   );

@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios"; // Ensure you have axios installed for the delete functionality
-
+import { AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 const PatientRegisterPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -108,6 +110,13 @@ const PatientRegisterPage = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg text-black shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-6">
+          {/* Close Icon */}
+          <button
+            onClick={() => router.push("/")} // Navigate to home
+            className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+          >
+            <AiOutlineClose size={24} /> {/* Close icon size */}
+          </button>
           <Image
             src="/care/patient.png"
             alt="Doctor"

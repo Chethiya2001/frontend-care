@@ -58,24 +58,34 @@ const AsideBar = ({ role }) => {
             </li>
           )}
 
-          {/* Links available to all users regardless of role */}
-          <li>
-            <Link href="/login" className="block p-4 hover:bg-gray-700">
-              Login as Admin
-            </Link>
-          </li>
-          <li>
-            <Link href="/login-doctor" className="block p-4 hover:bg-gray-700">
-              Login as Doctor
-            </Link>
-          </li>
-          <li>
-            <Link href="/login-staff" className="block p-4 hover:bg-gray-700">
-              Login as Staff
-            </Link>
-          </li>
+          {/* Show Login links only if the user is not logged in */}
+          {!localStorage.getItem("token") && (
+            <>
+              <li>
+                <Link href="/login" className="block p-4 hover:bg-gray-700">
+                  Login as Admin
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/login-doctor"
+                  className="block p-4 hover:bg-gray-700"
+                >
+                  Login as Doctor
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/login-staff"
+                  className="block p-4 hover:bg-gray-700"
+                >
+                  Login as Staff
+                </Link>
+              </li>
+            </>
+          )}
 
-          {/* Show Logout if user is logged in, else show Login */}
+          {/* Show Logout if user is logged in */}
           {localStorage.getItem("token") ? (
             <li>
               <button

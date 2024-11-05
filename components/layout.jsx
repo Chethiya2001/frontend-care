@@ -60,7 +60,7 @@ export default function Layout({ children }) {
 
   return (
     <div>
-      <NavBar />
+      <NavBar hideTitle={false} />
       <div className="flex">
         {/* Pass role as a direct value */}
         <AsideBar role={role} />

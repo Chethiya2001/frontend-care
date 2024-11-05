@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import NavBar from "@/components/NavBar";
 
 const AddAppoimentpage = () => {
   const [appointmentNumber, setAppointmentNumber] = useState("");
@@ -202,11 +203,7 @@ const AddAppoimentpage = () => {
   return (
     <div>
       {/* Header / Title */}
-      <nav className="flex flex-col items-center pt-4 ">
-        <div className="flex-grow"></div> {/* White space */}
-        <p className="mt-2 text-center text-3xl font-bold">Appoimnets</p>
-        <div className="border-b border-black w-full mt-10" />
-      </nav>
+      <NavBar title={"Appointments"} hideTitle={true} />
 
       {/* Sidebar Section */}
       <div className="flex h-screen ">
@@ -231,25 +228,14 @@ const AddAppoimentpage = () => {
           </div>
           {doctorDetails && (
             <div className="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-100">
-              <h3 className="text-lg font-bold mb-2">{doctorDetails.name}</h3>
               <p>
-                <strong>Address:</strong> {doctorDetails.address}
+                <strong>Name:</strong> {doctorDetails.name}
               </p>
-              <p>
-                <strong>Email:</strong> {doctorDetails.email}
-              </p>
-              <p>
-                <strong>Qualifications:</strong> {doctorDetails.qualifications}
-              </p>
-              <p>
-                <strong>Gender:</strong> {doctorDetails.gender}
-              </p>
+
               <p>
                 <strong>Contact:</strong> {doctorDetails.contact}
               </p>
-              <p>
-                <strong>Age:</strong> {doctorDetails.age}
-              </p>
+
               <p>
                 <strong>NIC:</strong> {doctorDetails.nic}
               </p>

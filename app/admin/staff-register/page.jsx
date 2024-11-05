@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
-
+import { AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 const StaffRegisterPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -111,9 +113,16 @@ const StaffRegisterPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center p-20 min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-6">
+          {/* Close Icon */}
+          <button
+            onClick={() => router.push("/")} // Navigate to home
+            className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+          >
+            <AiOutlineClose size={24} /> {/* Close icon size */}
+          </button>
           <Image
             src="/staff.png"
             alt="Doctor"

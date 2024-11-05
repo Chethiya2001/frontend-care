@@ -1,11 +1,30 @@
+"use client"
 import Layout from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const options = { year: "numeric", month: "long", day: "numeric" }; // Formatting options
-  const currentDate = new Date().toLocaleDateString(undefined, options); // Get current date in words
-  const currentTime = new Date().toLocaleTimeString(); // Get current time
+  const [currentDate, setCurrentDate] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
+
+  useEffect(() => {
+    // Function to update date and time
+    const updateDateTime = () => {
+      setCurrentDate(new Date().toLocaleDateString(undefined, options)); // Get current date in words
+      setCurrentTime(new Date().toLocaleTimeString()); // Get current time
+    };
+
+    updateDateTime(); // Initial call to set the date and time immediately
+
+    // Update the time every second
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString()); // Update current time every second
+    }, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, []);
 
   return (
     <Layout>
@@ -14,8 +33,8 @@ export default function Home() {
       </p>
       <div className="flex justify-between items-center mt-20 px-10">
         {" "}
-        <p className="text-3xl font-medium">{currentDate}</p>{" "}
-        <p className="text-6xl font-bold">{currentTime}</p>{" "}
+        <p className="text-3xl font-medium">{currentDate}</p>
+        <p className="text-6xl font-bold">{currentTime}</p>
       </div>
       <div>
         <p className="pt-20 px-10 text-left text-lg font-serif font-thin ">
