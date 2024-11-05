@@ -34,7 +34,7 @@ export default function Layout({ children }) {
         url = `http://localhost:5001/doctor/nic/${nic}`;
       } else if (role === "staff") {
         url = `http://localhost:5001/staff/nic/${nic}`;
-      } else if (role === "auth") {
+      } else if (role === "admin") {
         url = `http://localhost:5001/auth/nic/${nic}`;
       } else {
         console.error("Invalid user role");

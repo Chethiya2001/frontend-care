@@ -24,16 +24,20 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        const { token, role } = data;
+        const { token, role,nic } = data;
+
+        localStorage.setItem("nic", nic);
 
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
+
 
         console.log("Login successful");
 
         // Print the token and role in the console
         console.log("Token:", token);
         console.log("Role:", role);
+        console.log("NIC:", nic);
 
         alert("Login successful");
 

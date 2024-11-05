@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Layout from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,7 +38,7 @@ export default function Home() {
       </div>
       <div>
         <p className="pt-20 px-10 text-left text-lg font-serif font-thin ">
-          shoutcuts
+          Features
         </p>
         <div className=" px-10 border-b min-w-400 mt-5 " />
       </div>

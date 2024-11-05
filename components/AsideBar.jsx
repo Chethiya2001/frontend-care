@@ -28,7 +28,10 @@ const AsideBar = ({ role }) => {
       <nav className="flex-1">
         <ul className="space-y-2 mt-30">
           <li>
-            <Link href="/" className="block p-4 hover:bg-gray-700">
+            <Link
+              href="/"
+              className="block p-4  border-transparent hover:border hover:border-gray-700"
+            >
               Home
             </Link>
           </li>
@@ -36,7 +39,10 @@ const AsideBar = ({ role }) => {
           {/* Conditional rendering based on user role */}
           {role === "admin" && (
             <li>
-              <Link href="/admin" className="block p-4 hover:bg-gray-700">
+              <Link
+                href="/admin"
+                className="block p-4  border-transparent hover:border hover:border-gray-700"
+              >
                 Admin
               </Link>
             </li>
@@ -44,7 +50,10 @@ const AsideBar = ({ role }) => {
 
           {role === "doctor" && (
             <li>
-              <Link href="/consultant" className="block p-4 hover:bg-gray-700">
+              <Link
+                href="/consultant"
+                className="block p-4 border-transparent hover:border hover:border-gray-700"
+              >
                 Doctor
               </Link>
             </li>
@@ -52,7 +61,10 @@ const AsideBar = ({ role }) => {
 
           {role === "staff" && (
             <li>
-              <Link href="/staff" className="block p-4 hover:bg-gray-700">
+              <Link
+                href="/staff"
+                className="block p-4  border-transparent hover:border hover:border-gray-700"
+              >
                 Staff
               </Link>
             </li>
@@ -62,14 +74,17 @@ const AsideBar = ({ role }) => {
           {!localStorage.getItem("token") && (
             <>
               <li>
-                <Link href="/login" className="block p-4 hover:bg-gray-700">
+                <Link
+                  href="/login"
+                  className="block p-4 border-transparent hover:border hover:border-gray-700"
+                >
                   Login as Admin
                 </Link>
               </li>
               <li>
                 <Link
                   href="/login-doctor"
-                  className="block p-4 hover:bg-gray-700"
+                  className="block p-4 border-transparent hover:border hover:border-gray-700"
                 >
                   Login as Doctor
                 </Link>
@@ -77,7 +92,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login-staff"
-                  className="block p-4 hover:bg-gray-700"
+                  className="block p-4  border-transparent hover:border hover:border-gray-700"
                 >
                   Login as Staff
                 </Link>
@@ -90,14 +105,17 @@ const AsideBar = ({ role }) => {
             <li>
               <button
                 onClick={handleLogout}
-                className="block w-full text-left p-4 hover:bg-gray-700"
+                className="block w-full text-left p-4 border-transparent hover:border hover:border-gray-700"
               >
                 Logout
               </button>
             </li>
           ) : (
             <li>
-              <Link href="/login" className="block p-4 hover:bg-gray-700">
+              <Link
+                href="/login"
+                className="block p-4  border-transparent hover:border hover:border-gray-700"
+              >
                 Login
               </Link>
             </li>
