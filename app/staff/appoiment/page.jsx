@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
@@ -65,12 +65,13 @@ const AddAppoimentpage = () => {
   const handlePayment = async () => {
     // Prepare the payment data
     const paymentData = {
-      doctor_charge: doctorCharge,
-      hospital_charge: hospitalCharge,
-      doctorNic: selectedNic, // Replace with actual doctor NIC from context or props
-      patientNic: selectedPatientNic, // Replace with actual patient NIC from context or props
+      doctorNic: selectedNic,
+      doctor_charge: Number(doctorCharge),
+      hospital_charge: Number(hospitalCharge),
+      patientNic: selectedPatientNic,
     };
 
+    console.log("Payment Data:", paymentData);
     try {
       const response = await axios.post(
         "http://localhost:5001/payment",
@@ -82,10 +83,15 @@ const AddAppoimentpage = () => {
       // Reset fields after successful payment
       setDoctorCharge("");
       setHospitalCharge("");
+      handlePrint();
     } catch (error) {
-      console.error("Error making payment:", error);
-      alert("Error making payment!");
-      // Handle error, e.g., show an error message
+      if (error.response) {
+        console.error("Error making payment:", error.response.data); // Log the error details from the server
+        alert("Error making payment: " + JSON.stringify(error.response.data));
+      } else {
+        console.error("Error making payment:", error.message);
+        alert("Error making payment!");
+      }
     }
   };
   useEffect(() => {
@@ -110,24 +116,27 @@ const AddAppoimentpage = () => {
       });
   }, []);
 
-  useEffect(() => {
+  // Function to fetch appointments
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fetchAppointments = () => {
     if (selectedNic) {
-      // Fetch appointments for the selected doctor
       axios
         .get(`http://localhost:5001/appointment/doctor/${selectedNic}`)
         .then((response) => {
-          setAppointments(response.data); // Update state with appointment data
+          setAppointments(response.data);
         })
         .catch((error) => {
-          console.error(
-            "There was an error fetching the appointments for this doctor!",
-            error
-          );
+          console.error("Error fetching appointments for this doctor!", error);
         });
     } else {
       setAppointments([]);
     }
-  }, [selectedNic]); // This effect runs when selectedNic changes
+  };
+
+  // Fetch appointments when selectedNic changes
+  useEffect(() => {
+    fetchAppointments();
+  }, [fetchAppointments, selectedNic]);
 
   const handleDoctorChange = (event) => {
     const nic = event.target.value;
@@ -150,14 +159,13 @@ const AddAppoimentpage = () => {
       setDoctorDetails(null);
     }
   };
-  const handlePatientChange = (event) => {
-    const nic = event.target.value;
-    setSelectedPatientNic(nic);
+  const handlePatientChange = () => {
+    console.log("Added patient NIC:", selectedPatientNic);
 
-    if (nic) {
+    if (selectedPatientNic) {
       // Fetch the selected patient's details
       axios
-        .get(`http://localhost:5001/patient/nic/${nic}`)
+        .get(`http://localhost:5001/patient/nic/${selectedPatientNic}`)
         .then((response) => {
           setPatientDetails(response.data);
         })
@@ -193,6 +201,7 @@ const AddAppoimentpage = () => {
       );
       console.log("Appointment added successfully:", response.data);
       alert("Appointment added successfully");
+      fetchAppointments();
       // Optionally, reset the form or show a success message
     } catch (error) {
       console.error("There was an error adding the appointment:", error);
@@ -246,18 +255,21 @@ const AddAppoimentpage = () => {
 
           <div className="flex flex-col p-4">
             <h6 className="text-xl font-bold mb-4">Search Patient By NIC</h6>
-            <select
-              className="mt-2 p-2 w-full border rounded-lg text-gray-700"
-              value={selectedPatientNic}
-              onChange={handlePatientChange}
-            >
-              <option value="">Select a Patient</option>
-              {patients.map((patient) => (
-                <option key={patient.nic} value={patient.nic}>
-                  {patient.name}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center mb-4">
+              <input
+                type="text"
+                value={selectedPatientNic}
+                onChange={(e) => setSelectedPatientNic(e.target.value)}
+                placeholder="Enter NIC"
+                className="p-2 border border-gray-300 rounded-l-lg focus:outline-none"
+              />
+              <button
+                onClick={handlePatientChange}
+                className="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none"
+              >
+                <FaSearch />
+              </button>
+            </div>
           </div>
           {patientDetails && (
             <div className="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-100">
@@ -376,7 +388,6 @@ const AddAppoimentpage = () => {
 
           {/* Appointment Table (Now placed below all other sections) */}
           <div className="w-full p-6 mt-6">
-            {/* Wrapper Box with Border and Rounded Corners */}
             <div className="border border-gray-300 rounded-lg p-4">
               <table className="w-full table-auto border border-gray-300 rounded-lg">
                 <thead>
@@ -399,7 +410,6 @@ const AddAppoimentpage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* Map through appointments to display each one */}
                   {appointments.length > 0 ? (
                     appointments.map((appointment) => (
                       <tr key={appointment.id}>
@@ -416,7 +426,6 @@ const AddAppoimentpage = () => {
                           {appointment.Patient.name}
                         </td>
                         <td className="border border-gray-300 p-4">
-                          {/* Replace with actual contact info if available */}
                           {appointment.Patient.contact || "-"}
                         </td>
                       </tr>

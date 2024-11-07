@@ -1,7 +1,6 @@
 "use client";
 import Layout from "@/components/layout";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
@@ -47,7 +46,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 px-10">
           {/* Staff Login Card */}
 
-          <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
+          <div className=" rounded-lg  p-4  flex flex-col border border-black items-center h-full">
             <Image
               src="/staff.png"
               alt="Staff Login"
@@ -60,7 +59,7 @@ export default function Home() {
 
           {/* Consult Login Card */}
 
-          <div className=" rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center h-full">
+          <div className=" rounded-lg  p-4 flex flex-col border border-black items-center h-full">
             <Image
               src="/conslt.png"
               alt="Consult Login"
@@ -75,7 +74,7 @@ export default function Home() {
 
           {/* Admin Login Card */}
 
-          <div className="rounded-lg shadow-2xl p-4 hover:shadow-3xl transition-shadow duration-300 flex flex-col items-center hover:shadow-3xl h-full">
+          <div className="rounded-lg  p-4   flex flex-col items-center border border-black h-full">
             <Image
               src="/admin.png"
               alt="Admin Login"

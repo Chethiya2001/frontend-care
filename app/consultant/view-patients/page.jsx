@@ -5,6 +5,7 @@ import axios from "axios";
 import { FaUserCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import NavBar from "@/components/NavBar";
+import Link from "next/link";
 
 const ViewPatientpage = () => {
   const router = useRouter();
@@ -29,57 +30,45 @@ const ViewPatientpage = () => {
     fetchPatients();
   }, []);
 
-  const handleSelectPatient = (patient) => {
-    console.log(patient);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const role = localStorage.getItem("role");
+        const nic = localStorage.getItem("nic");
 
-    router.push(`/consultant/add-treatment?patient=${patient.nic}${patient.name}
-      ${patient.email}
-      ${patient.contact}
-      `);
-  };
+        if (!nic) {
+          console.error("NIC not found in local storage");
+          return;
+        }
 
-  const handleProfileClick = async () => {
-    try {
-      const role = localStorage.getItem("role"); // Retrieve the role from local storage
-      const nic = localStorage.getItem("nic"); // Retrieve the NIC from local storage
+        let url;
 
-      // Check if NIC is available
-      if (!nic) {
-        console.error("NIC not found in local storage");
-        return; // Exit if NIC is not found
+        if (role === "doctor") {
+          url = `http://localhost:5001/doctor/nic/${nic}`;
+        } else if (role === "staff") {
+          url = `http://localhost:5001/staff/nic/${nic}`;
+        } else if (role === "auth") {
+          url = `http://localhost:5001/auth/nic/${nic}`;
+        } else {
+          console.error("Invalid user role");
+          return;
+        }
+
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        setUserData(data);
+        setShowProfile(true);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
+    };
 
-      let url;
-
-      // Determine the URL based on user role
-      if (role === "doctor") {
-        url = `http://localhost:5001/doctor/nic/${nic}`;
-      } else if (role === "staff") {
-        url = `http://localhost:5001/staff/nic/${nic}`;
-      } else if (role === "auth") {
-        url = `http://localhost:5001/auth/nic/${nic}`;
-      } else {
-        console.error("Invalid user role");
-        return; // Exit the function if the role is invalid
-      }
-
-      // Fetch data from the determined URL
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      // Store the fetched user data
-      setUserData(data);
-      setShowProfile(true); // Show the user profile
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
+    fetchUserData();
+  }, []);
   return (
     <div>
       {/* Header / Title */}
@@ -90,24 +79,25 @@ const ViewPatientpage = () => {
         {/* Doctor and Patient Selection */}
         <div className="w-64 border-r-2 border-r-black text-black font-bold text-lg flex flex-col py-6 justify-start h-full">
           <div className="flex flex-col items-center mt-4">
-            {localStorage.getItem("token") ? (
-              <div className="relative">
-                <FaUserCircle
-                  className="text-6xl cursor-pointer"
-                  onClick={handleProfileClick} // Fetch and show user data on click
-                />
+            {localStorage.getItem("token") && userData ? (
+              <div className="text-center mb-4">
+                <h3 className="font-sans text-xl">{userData.name}</h3>
+                <p className="text-sm text-gray-600">{userData.role}</p>
               </div>
             ) : (
               <p className="text-gray-500">No user logged in</p>
             )}
+
+            <div className="relative">
+              <FaUserCircle
+                className="text-6xl cursor-pointer"
+                onClick={() => setShowProfile(!showProfile)}
+              />
+            </div>
           </div>
-          {/* Display User Data when showProfile is true */}
+
           {showProfile && userData && (
-            <div className="mt-4 p-4 border rounded bg-gray-200">
-              <h3 className="font-sans">User Profile</h3>
-              <p>
-                <strong>Name:</strong> {userData.name}
-              </p>
+            <div className="mt-4 p-4 border font-normal rounded bg-gray-200">
               <p>
                 <strong>Email:</strong> {userData.email}
               </p>
@@ -117,15 +107,6 @@ const ViewPatientpage = () => {
               <p>
                 <strong>NIC:</strong> {userData.nic}
               </p>
-              <p>
-                <strong>Role:</strong> {userData.role}
-              </p>
-              <button
-                onClick={() => setShowProfile(false)}
-                className="mt-2 py-1 px-2 bg-red-500 text-white rounded"
-              >
-                Close
-              </button>
             </div>
           )}
 
@@ -140,11 +121,22 @@ const ViewPatientpage = () => {
                   <li
                     key={patient.nic}
                     className="border p-4 mb-2 rounded cursor-pointer hover:bg-gray-100"
-                    onClick={() => handleSelectPatient(patient)}
                   >
-                    <h5 className="font-semibold">{patient.name}</h5>
-                    <p>{patient.contact}</p>
-                    <p>{patient.email}</p>
+                    <Link
+                      href={{
+                        pathname: "/consultant/add-treatment",
+                        query: {
+                          nic: patient.nic,
+                          name: patient.name,
+                          email: patient.email,
+                          contact: patient.contact,
+                        },
+                      }}
+                    >
+                      <h5 className="font-semibold">{patient.name}</h5>
+                      <p>{patient.contact}</p>
+                      <p>{patient.email}</p>
+                    </Link>
                   </li>
                 ))}
               </ul>

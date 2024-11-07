@@ -6,7 +6,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import NavBar from "@/components/NavBar";
 
-const AddTreatmentpage = () => {
+export default function AddTreatmentpage({ searchParams }) {
+  const { nic, name, email, contact } = searchParams;
+  console.log("New Search Params:", nic, name, email, contact);
+
   const router = useRouter();
   const [doctors, setDoctors] = useState([]);
   const [patients, setPatients] = useState([]);
@@ -19,76 +22,70 @@ const AddTreatmentpage = () => {
   const [selectedNic, setSelectedNic] = useState("");
   const [patientName, setPatientName] = useState("");
   const [doctorNic, setDoctorNic] = useState("");
-  const [selectedPatientNic, setSelectedPatientNic] = useState("");
-  const [patientDetails, setPatientDetails] = useState(null);
 
   const [treatments, setTreatments] = useState([]);
 
-  const handleDoctorChange = (event) => {
-    const nic = event.target.value;
-    setSelectedNic(nic);
-
-    if (nic) {
-      // Fetch the selected doctor's details
-      axios
-        .get(`http://localhost:5001/doctor/nic/${nic}`)
-        .then((response) => {
-          setDoctorDetails(response.data);
-          setTreatments(response.data);
-        })
-        .catch((error) => {
-          console.error(
-            "There was an error fetching the doctor details!",
-            error
-          );
-        });
-    } else {
-      setDoctorDetails(null);
-      setTreatments([]);
-    }
-  };
+  const [userData, setUserData] = useState(null); // State to hold user data
+  const [showProfile, setShowProfile] = useState(false); // State to toggle profile display
 
   useEffect(() => {
-    // Fetch the doctor data from the backend
-    axios
-      .get("http://localhost:5001/doctor/name")
-      .then((response) => {
-        setDoctors(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the doctors!", error);
-      });
+    const fetchUserData = async () => {
+      try {
+        const role = localStorage.getItem("role");
+        const nic = localStorage.getItem("nic");
 
-    // Fetch the patient data from the backend
-    axios
-      .get("http://localhost:5001/patient/name")
-      .then((response) => {
-        setPatients(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the patients!", error);
-      });
+        if (!nic) {
+          console.error("NIC not found in local storage");
+          return;
+        }
+
+        let url;
+
+        if (role === "doctor") {
+          url = `http://localhost:5001/doctor/nic/${nic}`;
+        } else if (role === "staff") {
+          url = `http://localhost:5001/staff/nic/${nic}`;
+        } else if (role === "auth") {
+          url = `http://localhost:5001/auth/nic/${nic}`;
+        } else {
+          console.error("Invalid user role");
+          return;
+        }
+
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        setUserData(data);
+        setShowProfile(true);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   useEffect(() => {
-    if (selectedNic) {
-      // Fetch appointments for the selected doctor
-      console.log("Selected NIC:", selectedNic);
+    if (userData && userData.nic) {
+      console.log("UserData NIC:", userData.nic);
       axios
-        .get(`http://localhost:5001/treatment/doctor/${selectedNic}`)
+        .get(`http://localhost:5001/treatment/doctor/${userData.nic}`)
         .then((response) => {
           setTreatments(response.data);
         })
         .catch((error) => {
           console.error(
-            "There was an error fetching the appointments for this doctor!",
+            "There was an error fetching the treatments for this doctor!",
             error
           );
         });
     } else {
       setTreatments([]);
     }
-  }, [selectedNic]);
+  }, [userData]);
 
   // Handle Save button click
   const handleSave = async () => {
@@ -100,7 +97,7 @@ const AddTreatmentpage = () => {
       treatment_type_discription: treatmentType,
       date_time: date,
       patient_name: patientName,
-      patientNic: selectedPatientNic,
+      patientNic: nic,
       doctorNic: selectedNic,
     };
 
@@ -122,28 +119,6 @@ const AddTreatmentpage = () => {
     } catch (error) {
       alert("Error adding treatment:", error.message);
       console.error("Error adding treatment:", error);
-    }
-  };
-
-  const handlePatientChange = (event) => {
-    const nic = event.target.value;
-    setSelectedPatientNic(nic);
-
-    if (nic) {
-      // Fetch the selected patient's details
-      axios
-        .get(`http://localhost:5001/patient/nic/${nic}`)
-        .then((response) => {
-          setPatientDetails(response.data);
-        })
-        .catch((error) => {
-          console.error(
-            "There was an error fetching the patient details!",
-            error
-          );
-        });
-    } else {
-      setPatientDetails(null);
     }
   };
 
@@ -172,61 +147,43 @@ const AddTreatmentpage = () => {
       <div className="flex h-screen">
         {/* Doctor and Patient Selection */}
         <div className="w-80 border-r-2 border-r-black text-black font-bold text-lg flex flex-col py-6 justify-start">
-          <h2 className="text-2xl p-4">Select Doctor</h2>
-
-          <div className="flex flex-col p-4">
-            <select
-              className="mt-2 p-2 w-full border rounded-lg text-gray-700"
-              value={selectedNic}
-              onChange={handleDoctorChange}
-            >
-              <option value="">Select a Doctor</option>
-              {doctors.map((doctor) => (
-                <option key={doctor.nic} value={doctor.nic}>
-                  {doctor.name}
-                </option>
-              ))}
-            </select>
+          <h2 className="text-2xl p-4">Doctor Details</h2>
+          <div className="flex flex-col p-4 font-normal">
+            {localStorage.getItem("token") && userData ? (
+              <div className="text-left mb-4">
+                {/* <h3 className="font-sans text-xl">{userData.name}</h3> */}
+                <p>
+                  <strong>NIC:</strong> {userData.nic}
+                </p>
+                <p>
+                  <strong>Name:</strong> {userData.name}
+                </p>
+                <p>
+                  <strong>Email:</strong> {userData.email}
+                </p>
+                <p>
+                  <strong>Contact:</strong> {userData.contact}
+                </p>
+              </div>
+            ) : (
+              <p className="text-gray-500">No user logged in</p>
+            )}
           </div>
-
-          <h2 className="text-2xl p-4">Add Patient</h2>
-          <div className="flex flex-col p-4">
-            <select
-              className="mt-2 p-2 w-full border rounded-lg text-gray-700"
-              value={selectedPatientNic}
-              onChange={handlePatientChange}
-            >
-              <option value="">Select a Patient</option>
-              {patients.map((patient) => (
-                <option key={patient.nic} value={patient.nic}>
-                  {patient.name}
-                </option>
-              ))}
-            </select>
+          <h2 className="text-2xl p-4">Patient Details</h2>
+          <div className="flex flex-col p-4 font-normal ">
+            <p>
+              <strong>NIC:</strong> {nic}
+            </p>
+            <p>
+              <strong>Name:</strong> {name}
+            </p>
+            <p>
+              <strong>Email:</strong> {email}
+            </p>
+            <p>
+              <strong>Contact:</strong> {contact}
+            </p>
           </div>
-          {patientDetails && (
-            <div className="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-100">
-              <h3 className="text-lg font-bold mb-2">{patientDetails.name}</h3>
-              <p>
-                <strong>Address:</strong> {patientDetails.address}
-              </p>
-              <p>
-                <strong>Email:</strong> {patientDetails.email}
-              </p>
-              <p>
-                <strong>Contact:</strong> {patientDetails.contact}
-              </p>
-              <p>
-                <strong>Gender:</strong> {patientDetails.gender}
-              </p>
-              <p>
-                <strong>Age:</strong> {patientDetails.age}
-              </p>
-              <p>
-                <strong>NIC:</strong> {patientDetails.nic}
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Content Section */}
@@ -410,6 +367,4 @@ const AddTreatmentpage = () => {
       </div>
     </div>
   );
-};
-
-export default AddTreatmentpage;
+}
