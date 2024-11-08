@@ -183,13 +183,14 @@ const AddAppoimentpage = () => {
     e.preventDefault();
     const doctorNic = selectedNic; // Assuming this is the NIC of the doctor
     const patientNic = selectedPatientNic; // Assuming this is the NIC of the patient
-
+    const smsDate = date.toISOString().split("T")[0];
+    const smsEmail = patientDetails.email;
+    const smsContact = patientDetails.contact;
     // Create the request body
     const appointmentData = {
       doctorNic,
       patientNic,
-
-      date: date.toISOString().split("T")[0], // Convert date to YYYY-MM-DD format
+      date: date.toISOString().split("T")[0],
       time: timeSlot,
       appointmentNumber,
     };
@@ -202,10 +203,26 @@ const AddAppoimentpage = () => {
       console.log("Appointment added successfully:", response.data);
       alert("Appointment added successfully");
       fetchAppointments();
-      // Optionally, reset the form or show a success message
+      sendSMS(smsContact, smsDate, appointmentNumber, smsEmail);
     } catch (error) {
       console.error("There was an error adding the appointment:", error);
       alert("There was an error adding the appointment");
+    }
+  };
+  const sendSMS = async (mobile, date, appoimentNumber, email) => {
+    try {
+      await axios.post("http://localhost:5001/sms-send", {
+        mobile: mobile,
+        appointmentId: appoimentNumber,
+        date: date,
+        email: email,
+      });
+      console.log(mobile, appoimentNumber, date, email);
+      console.log("Appointment datasend to back end successfully");
+
+      alert("Send SMS to owner mobile");
+    } catch (error) {
+      console.error("Error submitting data:", error);
     }
   };
 
