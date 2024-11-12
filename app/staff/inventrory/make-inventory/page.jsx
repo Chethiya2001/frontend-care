@@ -142,7 +142,7 @@ const MakeInventroyPage = () => {
         </div>
         <button
           onClick={addDrug}
-          className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="mt-4 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
         >
           Add Drug
         </button>
@@ -181,13 +181,13 @@ const MakeInventroyPage = () => {
                         setEditDrugId(drug.id);
                         setEditDrug({ ...drug });
                       }}
-                      className="mr-2 bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600"
+                      className="mr-2 bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => deleteDrug(drug.id)}
-                      className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                      className="border bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
                     >
                       Delete
                     </button>
@@ -270,7 +270,7 @@ const MakeInventroyPage = () => {
           </div>
           <button
             onClick={() => updateDrug(editDrugId)}
-            className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+            className="mt-4 bg-gray-500 border text-white py-2 px-4 rounded hover:bg-gray-600"
           >
             Save Changes
           </button>

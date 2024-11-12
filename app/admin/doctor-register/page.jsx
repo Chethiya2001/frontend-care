@@ -136,88 +136,88 @@ const DoctorRegisterPage = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* NIC Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">NIC</label>
+            <label className="w-1/3 mr-4 text-right text-sm">NIC</label>
             <input
               type="text"
               name="nic"
               id="nic"
               value={formData.nic}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
           {/* Name Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">Name</label>
+            <label className="w-1/3 mr-4 text-right text-sm">Name</label>
             <input
               type="text"
               name="name"
               id="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
 
           {/* Address Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">Address</label>
+            <label className="w-1/3 mr-4 text-right text-sm">Address</label>
             <input
               type="text"
               name="address"
               id="address"
               value={formData.address}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
 
           {/* Email Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">Email</label>
+            <label className="w-1/3 mr-4 text-right text-sm">Email</label>
             <input
               type="email"
               name="email"
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
           {/* password Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">Password</label>
+            <label className="w-1/3 mr-4 text-right text-sm">Password</label>
             <input
               type="password"
               name="password"
               id="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
           {/* Age Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">Age</label>
+            <label className="w-1/3 mr-4 text-right text-sm">Age</label>
             <input
               type="text"
               name="age"
               id="age"
               value={formData.age}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
 
           {/* Qualifications Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">
+            <label className="w-1/3 mr-4 text-right text-sm">
               Qualifications
             </label>
             <input
@@ -226,28 +226,28 @@ const DoctorRegisterPage = () => {
               id="qualifications"
               value={formData.qualifications}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
 
           {/* Contact Field */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">Contact</label>
+            <label className="w-1/3 mr-4 text-right text-sm">Contact</label>
             <input
               type="text"
               name="contact"
               id="contact"
               value={formData.contact}
               onChange={handleChange}
-              className="w-2/3 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none"
+              className="w-2/3 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none"
               required
             />
           </div>
 
           {/* Gender Radio Buttons */}
           <div className="flex items-center mb-4">
-            <label className="w-1/3 mr-4 text-right text-lg">
+            <label className="w-1/3 mr-4 text-right text-sm">
               Select Gender:
             </label>
             <div className="flex items-center w-2/3">
@@ -257,20 +257,20 @@ const DoctorRegisterPage = () => {
                 value="Male"
                 checked={formData.gender === "Male"}
                 onChange={handleChange}
-                className="mr-2 text-lg"
+                className="mr-2 text-sm"
                 required
               />
-              <label className="mr-4 text-lg">Male</label>
+              <label className="mr-4 text-sm">Male</label>
               <input
                 type="radio"
                 name="gender"
                 value="Female"
                 checked={formData.gender === "Female"}
                 onChange={handleChange}
-                className="mr-2 text-lg"
+                className="mr-2 text-sm"
                 required
               />
-              <label className="text-lg">Female</label>
+              <label className="text-sm">Female</label>
             </div>
           </div>
 
@@ -278,26 +278,26 @@ const DoctorRegisterPage = () => {
           <div className="flex justify-between mt-6">
             <button
               type="submit"
-              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
+              className="w-full py-3 text-sm border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Register
             </button>
             <button
               onClick={() => handleUpdate(formData.nic)}
-              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
+              className="w-full py-3 text-sm border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Update
             </button>
             <button
               onClick={() => handleDelete(formData.nic)}
-              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
+              className="w-full py-3 text-sm border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Delete
             </button>
             <button
               onClick={handleSearch}
               type="button" // Ensure this button does not submit the form
-              className="w-full py-3 text-lg border  border-gray-500  hover:gray-600 rounded-lg mx-1"
+              className="w-full py-3 text-sm border  border-gray-500  hover:gray-600 rounded-lg mx-1"
             >
               Search
             </button>

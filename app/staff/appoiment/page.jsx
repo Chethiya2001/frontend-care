@@ -268,10 +268,9 @@ const AddAppoimentpage = () => {
             </div>
           )}
 
-          <h2 className="text-2xl p-1 mt-6 mb-4">Select Patient</h2>
+          <h2 className="text-2xl p-1 mt-6 mb-4">Search Patient Using NIC</h2>
 
           <div className="flex flex-col p-4">
-            <h6 className="text-xl font-bold mb-4">Search Patient By NIC</h6>
             <div className="flex items-center mb-4">
               <input
                 type="text"
@@ -282,15 +281,17 @@ const AddAppoimentpage = () => {
               />
               <button
                 onClick={handlePatientChange}
-                className="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none"
+                className="bg-gray-500 text-white p-2 rounded-r-lg hover:bg-gray-600 focus:outline-none flex items-center justify-center"
               >
-                <FaSearch />
+                <FaSearch size={20} />{" "}
+                {/* Set size to match the text box height */}
               </button>
             </div>
           </div>
+
           {patientDetails && (
             <div className="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-100">
-              <h3 className="text-lg font-bold mb-2">{patientDetails.name}</h3>
+              <h3 className="text-sm font-bold mb-2">{patientDetails.name}</h3>
               <p>
                 <strong>Address:</strong> {patientDetails.address}
               </p>
@@ -354,7 +355,7 @@ const AddAppoimentpage = () => {
                   <div className="mb-4">
                     <label
                       htmlFor="appointmentNumber"
-                      className="text-lg font-bold block mb-1"
+                      className="text-sm font-bold block mb-1"
                     >
                       Appointment Number:
                     </label>
@@ -372,7 +373,7 @@ const AddAppoimentpage = () => {
                   <div>
                     <label
                       htmlFor="selectedTimeSlot"
-                      className="text-lg font-bold block mb-1"
+                      className="text-sm font-bold block mb-1"
                     >
                       Selected Time Slot:
                     </label>
@@ -467,7 +468,7 @@ const AddAppoimentpage = () => {
                 <div className="mb-4">
                   <label
                     htmlFor="doctorChange"
-                    className="text-lg font-bold block mb-1"
+                    className="text-sm font-bold block mb-1"
                   >
                     Charge Doctor:
                   </label>
@@ -485,7 +486,7 @@ const AddAppoimentpage = () => {
                 <div>
                   <label
                     htmlFor="hospitalChange"
-                    className="text-lg font-bold block mb-1"
+                    className="text-sm font-bold block mb-1"
                   >
                     Charge Hospital:
                   </label>
@@ -503,7 +504,7 @@ const AddAppoimentpage = () => {
               {/* Right Side: Full Amount and Payment Button */}
               <div className="flex flex-col items-end w-1/2">
                 <div className="mb-4">
-                  <h4 className="text-lg font-bold">Full Amount</h4>
+                  <h4 className="text-sm font-bold">Full Amount</h4>
                   <p className="text-xl font-semibold text-blue-600">
                     $
                     {(Number(hospitalCharge) + Number(doctorCharge)).toFixed(2)}

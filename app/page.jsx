@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <p className="mt-5 mb-2 text-center text-5xl font-serif font-thin ">
+      <p className="mt-5 mb-2 text-center text-2xl font-serif font-thin ">
         Welcome to WeCare
       </p>
       <div className="flex justify-between items-center mt-20 px-10">
@@ -36,9 +36,7 @@ export default function Home() {
         <p className="text-6xl font-bold">{currentTime}</p>
       </div>
       <div>
-        <p className="pt-20 px-10 text-left text-lg font-serif font-thin ">
-          Features
-        </p>
+        <p className="pt-20 px-10 text-left font-serif font-thin ">Features</p>
         <div className=" px-10 border-b min-w-400 mt-5 " />
       </div>
       <div className="container mx-auto">
@@ -54,7 +52,7 @@ export default function Home() {
               height={150}
               className="object-cover"
             />
-            <h3 className="text-xl font-bold text-center mt-4">Staff Login</h3>
+            <h3 className="text-sm font-bold text-center mt-4">Staff Login</h3>
           </div>
 
           {/* Consult Login Card */}
@@ -67,7 +65,7 @@ export default function Home() {
               height={150}
               className="object-cover"
             />
-            <h3 className="text-xl font-bold text-center mt-4">
+            <h3 className="text-sm font-bold text-center mt-4">
               Consult Login
             </h3>
           </div>
@@ -82,7 +80,7 @@ export default function Home() {
               height={150}
               className="object-cover"
             />
-            <h3 className="text-xl font-bold text-center mt-4">Admin Login</h3>
+            <h3 className="text-sm font-bold text-center mt-4">Admin Login</h3>
           </div>
         </div>
       </div>

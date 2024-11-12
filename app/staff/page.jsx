@@ -18,7 +18,7 @@ const Staffpage = () => {
               height={100}
               className="mb-4"
             />
-            <p>Patient Register</p>
+            <p >Patient Register</p>
           </div>
         </Link>
         <Link href="staff/appoiment">

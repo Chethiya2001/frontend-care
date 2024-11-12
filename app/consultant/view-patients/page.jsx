@@ -77,7 +77,7 @@ const ViewPatientpage = () => {
       {/* Sidebar Section */}
       <div className="flex h-screen">
         {/* Doctor and Patient Selection */}
-        <div className="w-64 border-r-2 border-r-black text-black font-bold text-lg flex flex-col py-6 justify-start h-full">
+        <div className="w-64 border-r-2 border-r-black text-black font-bold text-sm flex flex-col py-6 justify-start h-full">
           <div className="flex flex-col items-center mt-4">
             {localStorage.getItem("token") && userData ? (
               <div className="text-center mb-4">
@@ -144,17 +144,7 @@ const ViewPatientpage = () => {
           </div>
         </div>
 
-        {/* Add Treatment Section (Left Side) */}
-        <div className="p-8">
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-            onClick={() => router.push("/consultant/add-treatment")}
-          >
-            Add Treatment
-          </button>
-        </div>
-
-        {/* Treatment History Section (Right Side) */}
+       
       </div>
     </div>
   );
