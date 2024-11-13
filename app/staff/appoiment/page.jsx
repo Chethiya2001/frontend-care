@@ -181,11 +181,24 @@ const AddAppoimentpage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const doctorNic = selectedNic; // Assuming this is the NIC of the doctor
-    const patientNic = selectedPatientNic; // Assuming this is the NIC of the patient
+    const doctorNic = selectedNic; 
+    const patientNic = selectedPatientNic; 
     const smsDate = date.toISOString().split("T")[0];
     const smsEmail = patientDetails.email;
     const smsContact = patientDetails.contact;
+
+    // Fetch doctor details by NIC
+    let doctorName;
+    try {
+      const doctorResponse = await axios.get(
+        `http://localhost:5001/doctor/nic/${doctorNic}`
+      );
+      doctorName = doctorResponse.data.name; // Assuming the response contains { name: "Doctor Name" }
+    } catch (error) {
+      console.error("Error fetching doctor details:", error);
+      alert("Failed to retrieve doctor information");
+      return;
+    }
     // Create the request body
     const appointmentData = {
       doctorNic,
@@ -195,6 +208,8 @@ const AddAppoimentpage = () => {
       appointmentNumber,
     };
 
+    console.log("Appointment Data:", appointmentData);
+
     try {
       const response = await axios.post(
         "http://localhost:5001/appointment",
@@ -203,29 +218,43 @@ const AddAppoimentpage = () => {
       console.log("Appointment added successfully:", response.data);
       alert("Appointment added successfully");
       fetchAppointments();
-      sendSMS(smsContact, smsDate, appointmentNumber, smsEmail);
+      sendSMS(
+        smsContact,
+        smsDate,
+        appointmentNumber,
+        doctorName,
+        timeSlot,
+        smsEmail
+      );
     } catch (error) {
       console.error("There was an error adding the appointment:", error);
       alert("There was an error adding the appointment");
     }
   };
-  const sendSMS = async (mobile, date, appoimentNumber, email) => {
+  const sendSMS = async (
+    mobile,
+    date,
+    appointmentNumber,
+    doctorName,
+    time,
+    email
+  ) => {
     try {
       await axios.post("http://localhost:5001/sms-send", {
         mobile: mobile,
-        appointmentId: appoimentNumber,
+        appointmentId: appointmentNumber,
         date: date,
+        time: time,
+        doctorName: doctorName,
         email: email,
       });
-      console.log(mobile, appoimentNumber, date, email);
-      console.log("Appointment datasend to back end successfully");
-
-      alert("Send SMS to owner mobile");
+      console.log(mobile, appointmentNumber, date, time, doctorName, email);
+      console.log("Appointment data sent to backend successfully");
+      alert("SMS sent to owner's mobile");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
-
   return (
     <div>
       {/* Header / Title */}
