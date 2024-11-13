@@ -30,7 +30,7 @@ const AsideBar = ({ role }) => {
           <li>
             <Link
               href="/"
-              className="block p-4  border-transparent hover:border hover:border-gray-700"
+              className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
             >
               Home
             </Link>
@@ -41,7 +41,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/admin"
-                className="block p-4  border-transparent hover:border hover:border-gray-700"
+                className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
               >
                 Admin
               </Link>
@@ -52,7 +52,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/consultant"
-                className="block p-4 border-transparent hover:border hover:border-gray-700"
+               className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
               >
                 Doctor
               </Link>
@@ -63,7 +63,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/staff"
-                className="block p-4  border-transparent hover:border hover:border-gray-700"
+            className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
               >
                 Staff
               </Link>
@@ -76,7 +76,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login"
-                  className="block p-4 border-transparent hover:border hover:border-gray-700"
+                 className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
                 >
                   Login as Admin
                 </Link>
@@ -84,7 +84,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login-doctor"
-                  className="block p-4 border-transparent hover:border hover:border-gray-700"
+                  className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
                 >
                   Login as Doctor
                 </Link>
@@ -92,7 +92,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login-staff"
-                  className="block p-4  border-transparent hover:border hover:border-gray-700"
+                 className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
                 >
                   Login as Staff
                 </Link>
@@ -105,7 +105,7 @@ const AsideBar = ({ role }) => {
             <li>
               <button
                 onClick={handleLogout}
-                className="block w-full text-left p-4 border-transparent hover:border hover:border-gray-700"
+                className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
               >
                 Logout
               </button>
@@ -114,7 +114,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/login"
-                className="block p-4  border-transparent hover:border hover:border-gray-700"
+                className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
               >
                 Login
               </Link>
