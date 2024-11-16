@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NavBar from "@/components/NavBar";
+import Image from "next/image";
 
 const AddAppoimentpage = () => {
   const [appointmentNumber, setAppointmentNumber] = useState("");
@@ -181,8 +182,8 @@ const AddAppoimentpage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const doctorNic = selectedNic; 
-    const patientNic = selectedPatientNic; 
+    const doctorNic = selectedNic;
+    const patientNic = selectedPatientNic;
     const smsDate = date.toISOString().split("T")[0];
     const smsEmail = patientDetails.email;
     const smsContact = patientDetails.contact;
@@ -264,10 +265,18 @@ const AddAppoimentpage = () => {
       <div className="flex h-screen ">
         {/* Doctor and Patient Selection */}
         <div className="flex-1 w-64 flex flex-col py-6 border-r border-black">
-          <h2 className="text-2xl p-1 mb-4">Select Doctor</h2>
+          <div className="flex items-center mt-6 mb-4">
+            <Image
+              src="/care/doctor.png"
+              alt="Patient Icon"
+              width={30}
+              height={30}
+              className="w-6 h-6 mr-2"
+            />
+            <h2 className="text-2xl p-1">Select Doctor </h2>
+          </div>
 
           <div className="flex flex-col p-4">
-            <h6 className="text-xl font-bold mb-4">Search Doctor By NIC</h6>
             <select
               className="mt-2 p-2 w-full border rounded-lg text-gray-700"
               value={selectedNic}
@@ -297,7 +306,16 @@ const AddAppoimentpage = () => {
             </div>
           )}
 
-          <h2 className="text-2xl p-1 mt-6 mb-4">Search Patient Using NIC</h2>
+          <div className="flex items-center mt-6 mb-4">
+            <Image
+              src="/care/patient.png"
+              alt="Patient Icon"
+              width={30}
+              height={30}
+              className="w-6 h-6 mr-2"
+            />
+            <h2 className="text-2xl p-1">Search Patient Using NIC</h2>
+          </div>
 
           <div className="flex flex-col p-4">
             <div className="flex items-center mb-4">

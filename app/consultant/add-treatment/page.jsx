@@ -147,7 +147,16 @@ export default function AddTreatmentpage({ searchParams }) {
       <div className="flex h-screen">
         {/* Doctor and Patient Selection */}
         <div className="w-80 border-r-2 border-r-black text-black font-bold text-lg flex flex-col py-6 justify-start">
-          <h2 className="text-2xl p-4">Doctor Details</h2>
+          <div className="flex items-center mt-6 mb-4">
+            <Image
+              src="/care/doctor.png"
+              alt="Patient Icon"
+              width={30}
+              height={30}
+              className="w-6 h-6 mr-2"
+            />
+            <h2 className="text-2xl p-1">Doctor Details</h2>
+          </div>
           <div className="flex flex-col p-4 font-normal">
             {localStorage.getItem("token") && userData ? (
               <div className="text-left mb-4">
@@ -169,7 +178,17 @@ export default function AddTreatmentpage({ searchParams }) {
               <p className="text-gray-500">No user logged in</p>
             )}
           </div>
-          <h2 className="text-2xl p-4">Patient Details</h2>
+          <div className="flex items-center mt-6 mb-4">
+            <Image
+              src="/care/patient.png"
+              alt="Patient Icon"
+              width={30}
+              height={30}
+              className="w-6 h-6 mr-2"
+            />
+            <h2 className="text-2xl p-1">Patient Details</h2>
+          </div>
+
           <div className="flex flex-col p-4 font-normal ">
             <p>
               <strong>NIC:</strong> {nic}
