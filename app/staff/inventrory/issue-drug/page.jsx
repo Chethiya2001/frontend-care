@@ -124,7 +124,7 @@ const IssueDrugPage = () => {
               htmlFor="petName"
               className="block text-gray-700 font-medium mb-2"
             >
-              Pet Name:
+              Patient Name:
             </label>
             <input
               type="text"
