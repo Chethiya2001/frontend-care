@@ -40,7 +40,7 @@ export default function Login() {
         alert("Login successful");
 
         if (role === "staff") {
-          router.push("/");
+          router.push("/staff");
         } else {
           // Fallback for unknown role
           alert("Unknown role. Redirecting to home.");

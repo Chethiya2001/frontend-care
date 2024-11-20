@@ -23,15 +23,18 @@ const AsideBar = ({ role }) => {
     }
   }, [router, role]);
 
+  const getActiveClass = (path) => {
+    return router.pathname === path
+      ? "border-t-2 border-b-2 border-black border-r-4 border-r-black"
+      : "border-transparent hover:border-t-2 hover:border-b-2 hover:border-black hover:border-r-4 hover:border-r-black";
+  };
+
   return (
     <div className="h-screen w-64 text-black flex flex-col py-6">
       <nav className="flex-1">
         <ul className="space-y-2 mt-30">
           <li>
-            <Link
-              href="/"
-              className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
-            >
+            <Link href="/" className={`block p-4 ${getActiveClass("/")}`}>
               Home
             </Link>
           </li>
@@ -41,7 +44,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/admin"
-                className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
+                className={`block p-4 ${getActiveClass("/admin")}`}
               >
                 Admin
               </Link>
@@ -52,7 +55,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/consultant"
-               className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
+                className={`block p-4 ${getActiveClass("/consultant")}`}
               >
                 Doctor
               </Link>
@@ -63,7 +66,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/staff"
-            className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
+                className={`block p-4 ${getActiveClass("/staff")}`}
               >
                 Staff
               </Link>
@@ -76,7 +79,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login"
-                 className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
+                  className={`block p-4 ${getActiveClass("/login")}`}
                 >
                   Login as Admin
                 </Link>
@@ -84,7 +87,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login-doctor"
-                  className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
+                  className={`block p-4 ${getActiveClass("/login-doctor")}`}
                 >
                   Login as Doctor
                 </Link>
@@ -92,7 +95,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login-staff"
-                 className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
+                  className={`block p-4 ${getActiveClass("/login-staff")}`}
                 >
                   Login as Staff
                 </Link>
@@ -101,23 +104,14 @@ const AsideBar = ({ role }) => {
           )}
 
           {/* Show Logout if user is logged in */}
-          {localStorage.getItem("token") ? (
+          {localStorage.getItem("token") && (
             <li>
               <button
                 onClick={handleLogout}
-                className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
+                className="block w-full text-left p-4 border-transparent hover:border-t-2 hover:border-b-2 hover:border-black hover:border-r-4 hover:border-r-black"
               >
                 Logout
               </button>
-            </li>
-          ) : (
-            <li>
-              <Link
-                href="/login"
-                className="block p-4 border-transparent hover:border-r-2 hover:border-r-black"
-              >
-                Login
-              </Link>
             </li>
           )}
         </ul>
