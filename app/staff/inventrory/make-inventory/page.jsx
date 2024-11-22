@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import NavBar from "@/components/NavBar";
 const MakeInventroyPage = () => {
   const [drugs, setDrugs] = useState([]);
   const [newDrug, setNewDrug] = useState({
@@ -72,7 +72,9 @@ const MakeInventroyPage = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">Drug Inventory</h1>
+      {/* Header / Title */}
+      <NavBar hideTitle={true} title="Drug Inventory" />
+      <h1 className="text-3xl font-bold pt-3 mb-6">Drug Inventory</h1>
 
       {/* Add Drug Form */}
       <div className="mb-6 p-4 bg-white rounded shadow">

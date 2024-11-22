@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 const IssueDrugPage = () => {
+  const router = useRouter();
   const [drugs, setDrugs] = useState([]);
   const [selectedDrugId, setSelectedDrugId] = useState("");
   const [quantity, setQuantity] = useState(0);
@@ -56,6 +58,13 @@ const IssueDrugPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      {/* Close Icon */}
+      <button
+        onClick={() => router.push("/")} // Navigate to home
+        className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+      >
+        <AiOutlineClose size={24} /> {/* Close icon size */}
+      </button>
       <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Issue Drug
