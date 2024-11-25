@@ -144,6 +144,7 @@ const AddAppoimentpage = () => {
       prevTimeSlots.filter((slot) => slot !== selectedSlot)
     );
   };
+
   // Function to fetch appointments
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAppointments = () => {
