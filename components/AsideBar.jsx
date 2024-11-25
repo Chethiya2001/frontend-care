@@ -1,30 +1,28 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const AsideBar = ({ role }) => {
+const AsideBar = () => {
   const router = useRouter();
+  const [role, setRole] = useState(""); // State to store the user role
+
+  // Fetch the role from localStorage (or JWT token) when the component mounts
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role"); // Or from your JWT if applicable
+    if (storedRole) {
+      setRole(storedRole); // Set the role when available
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.clear();
     router.push("/");
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    // Log the role and token values for debugging
-    console.log("Role:", role);
-    console.log("Token:", token);
-
-    if (!token) {
-      router.push("/");
-    }
-  }, [router, role]);
-
-  const getActiveClass = (path) => {
-    return router.pathname === path
+  // Function to determine if the current link is active based on the user's role
+  const getActiveClass = (targetRole) => {
+    return role === targetRole
       ? "border-t-2 border-b-2 border-black border-r-4 border-r-black"
       : "border-transparent hover:border-t-2 hover:border-b-2 hover:border-black hover:border-r-4 hover:border-r-black";
   };
@@ -34,7 +32,7 @@ const AsideBar = ({ role }) => {
       <nav className="flex-1">
         <ul className="space-y-2 mt-30">
           <li>
-            <Link href="/" className={`block p-4 ${getActiveClass("/")}`}>
+            <Link href="/" className={`block p-4 ${getActiveClass("")}`}>
               Home
             </Link>
           </li>
@@ -44,7 +42,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/admin"
-                className={`block p-4 ${getActiveClass("/admin")}`}
+                className={`block p-4 ${getActiveClass("admin")}`}
               >
                 Admin
               </Link>
@@ -54,8 +52,8 @@ const AsideBar = ({ role }) => {
           {role === "doctor" && (
             <li>
               <Link
-                href="/consultant"
-                className={`block p-4 ${getActiveClass("/consultant")}`}
+                href="/doctor"
+                className={`block p-4 ${getActiveClass("doctor")}`}
               >
                 Doctor
               </Link>
@@ -66,7 +64,7 @@ const AsideBar = ({ role }) => {
             <li>
               <Link
                 href="/staff"
-                className={`block p-4 ${getActiveClass("/staff")}`}
+                className={`block p-4 ${getActiveClass("staff")}`}
               >
                 Staff
               </Link>
@@ -79,7 +77,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login"
-                  className={`block p-4 ${getActiveClass("/login")}`}
+                  className={`block p-4 ${getActiveClass("login")}`}
                 >
                   Login as Admin
                 </Link>
@@ -87,7 +85,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login-doctor"
-                  className={`block p-4 ${getActiveClass("/login-doctor")}`}
+                  className={`block p-4 ${getActiveClass("login-doctor")}`}
                 >
                   Login as Doctor
                 </Link>
@@ -95,7 +93,7 @@ const AsideBar = ({ role }) => {
               <li>
                 <Link
                   href="/login-staff"
-                  className={`block p-4 ${getActiveClass("/login-staff")}`}
+                  className={`block p-4 ${getActiveClass("login-staff")}`}
                 >
                   Login as Staff
                 </Link>
