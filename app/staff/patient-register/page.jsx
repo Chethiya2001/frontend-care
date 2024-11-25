@@ -112,7 +112,7 @@ const PatientRegisterPage = () => {
         <div className="flex justify-center mb-6">
           {/* Close Icon */}
           <button
-            onClick={() => router.push("/")} // Navigate to home
+            onClick={() => router.push("/staff")} // Navigate to home
             className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
           >
             <AiOutlineClose size={24} /> {/* Close icon size */}

@@ -116,7 +116,7 @@ const DoctorRegisterPage = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         {/* Close Icon */}
         <button
-          onClick={() => router.push("/")} // Navigate to home
+          onClick={() => router.push("/admin")} // Navigate to home
           className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
         >
           <AiOutlineClose size={24} /> {/* Close icon size */}

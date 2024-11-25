@@ -14,7 +14,7 @@ const AddAppoimentpage = () => {
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [date, setDate] = useState(new Date());
   const [timeSlot, setTimeSlot] = useState("");
-  const [availableTimeSlots] = useState([
+  const [availableTimeSlots, setAvailableTimeSlots] = useState([
     "09:00 AM",
     "10:00 AM",
     "11:00 AM",
@@ -23,6 +23,7 @@ const AddAppoimentpage = () => {
     "03:00 PM",
     "04:00 PM",
   ]);
+  const [takenTimeSlots, setTakenTimeSlots] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [selectedNic, setSelectedNic] = useState("");
   const [patients, setPatients] = useState([]);
@@ -117,6 +118,32 @@ const AddAppoimentpage = () => {
       });
   }, []);
 
+  // 1. Fetch taken time slots from localStorage when component mounts
+  useEffect(() => {
+    const takenTimeSlots =
+      JSON.parse(localStorage.getItem("takenTimeSlots")) || [];
+    setAvailableTimeSlots((prevTimeSlots) =>
+      prevTimeSlots.filter((slot) => !takenTimeSlots.includes(slot))
+    );
+  }, []);
+
+  // 2. When a time slot is selected, save it to localStorage
+  const handleTimeSlotSelect = (selectedSlot) => {
+    setTimeSlot(selectedSlot);
+
+    // Get the taken time slots from localStorage (if any) and add the selected slot
+    const takenTimeSlots =
+      JSON.parse(localStorage.getItem("takenTimeSlots")) || [];
+    if (!takenTimeSlots.includes(selectedSlot)) {
+      takenTimeSlots.push(selectedSlot);
+      localStorage.setItem("takenTimeSlots", JSON.stringify(takenTimeSlots));
+    }
+
+    // Remove the selected slot from available time slots
+    setAvailableTimeSlots((prevTimeSlots) =>
+      prevTimeSlots.filter((slot) => slot !== selectedSlot)
+    );
+  };
   // Function to fetch appointments
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAppointments = () => {
@@ -227,6 +254,11 @@ const AddAppoimentpage = () => {
         timeSlot,
         smsEmail
       );
+
+      setAvailableTimeSlots((prevSlots) =>
+        prevSlots.filter((slot) => slot !== timeSlot)
+      );
+      setTakenTimeSlots((prevTaken) => [...prevTaken, timeSlot]);
     } catch (error) {
       console.error("There was an error adding the appointment:", error);
       alert("There was an error adding the appointment");
@@ -383,12 +415,13 @@ const AddAppoimentpage = () => {
                 {availableTimeSlots.map((slot, index) => (
                   <button
                     key={index}
-                    className={`p-2 border rounded-lg ${
+                    className={`p-2 ${
                       timeSlot === slot
                         ? "bg-blue-500 text-white"
                         : "bg-gray-100 text-black"
                     }`}
-                    onClick={() => setTimeSlot(slot)}
+                    onClick={() => handleTimeSlotSelect(slot)}
+                    disabled={takenTimeSlots.includes(slot)} // Disable if slot is taken
                   >
                     {slot}
                   </button>
@@ -553,7 +586,7 @@ const AddAppoimentpage = () => {
                 <div className="mb-4">
                   <h4 className="text-sm font-bold">Full Amount</h4>
                   <p className="text-xl font-semibold text-blue-600">
-                    $
+                    LKR.
                     {(Number(hospitalCharge) + Number(doctorCharge)).toFixed(2)}
                   </p>
                 </div>
