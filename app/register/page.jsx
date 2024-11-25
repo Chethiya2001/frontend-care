@@ -3,14 +3,13 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Register() {
- 
   const [formData, setFormData] = useState({
     name: "",
     address: "",
     email: "",
     password: "",
     contact: "",
-    nic: ""
+    nic: "",
   });
 
   const router = useRouter();
@@ -103,13 +102,22 @@ export default function Register() {
           onChange={handleChange}
           required
         />
-        
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded"
-        >
-          Register
-        </button>
+
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            className="w-full bg-black text-white p-2 rounded"
+          >
+            Register
+          </button>
+          <button
+            type="button"
+            onClick={() => router.push("/login")}
+            className="w-full bg-white text-black border border-black p-2 rounded"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

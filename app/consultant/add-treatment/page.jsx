@@ -370,7 +370,7 @@ export default function AddTreatmentpage({ searchParams }) {
             <div className="flex justify-end space-x-2">
               <button
                 onClick={handleSave}
-                className="p-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                className="p-2 border rounded-lg bg-black text-white hover:bg-gray-600  "
               >
                 Save
               </button>

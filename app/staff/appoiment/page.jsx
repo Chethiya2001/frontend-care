@@ -472,7 +472,7 @@ const AddAppoimentpage = () => {
                 {/* Submit and Cancel Buttons */}
                 <div className="mt-4">
                   <button
-                    className="bg-blue-500 text-white px-6 py-2 rounded"
+                    className="bg-black text-white px-6 py-2 rounded"
                     onClick={handleSubmit}
                   >
                     Submit
@@ -586,14 +586,14 @@ const AddAppoimentpage = () => {
               <div className="flex flex-col items-end w-1/2">
                 <div className="mb-4">
                   <h4 className="text-sm font-bold">Full Amount</h4>
-                  <p className="text-xl font-semibold text-blue-600">
+                  <p className="text-xl font-semibold text-black">
                     LKR.
                     {(Number(hospitalCharge) + Number(doctorCharge)).toFixed(2)}
                   </p>
                 </div>
                 <div className="flex items-center">
                   <button
-                    className="bg-blue-500 text-white px-6 py-2 rounded mr-4"
+                    className="bg-black text-white px-6 py-2 rounded mr-4"
                     onClick={handlePayment}
                   >
                     Make Payment

@@ -189,7 +189,7 @@ const MakeInventroyPage = () => {
                     </button>
                     <button
                       onClick={() => deleteDrug(drug.id)}
-                      className="border bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
+                      className="border bg-red-800 text-white py-1 px-3 rounded hover:bg-red-600"
                     >
                       Delete
                     </button>

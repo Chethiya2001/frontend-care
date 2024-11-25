@@ -24,13 +24,12 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        const { token, role,nic } = data;
+        const { token, role, nic } = data;
 
         localStorage.setItem("nic", nic);
 
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
-
 
         console.log("Login successful");
 
@@ -83,12 +82,22 @@ export default function Login() {
           onChange={handleChange}
           required
         />
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded"
-        >
-          Login
-        </button>
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            className="w-full bg-black text-white p-2 rounded"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => router.push("/")}
+            type="button"
+            className="w-full bg-white text-black border border-black p-2 rounded"
+          >
+            Cancel
+          </button>
+        </div>
+
         <p className="text-center mt-4">
           Don't have an account?{" "}
           <a href="/register" className="text-blue-500">

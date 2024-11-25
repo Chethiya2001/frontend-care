@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { AiOutlineClose } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+
 const IssueDrugPage = () => {
   const router = useRouter();
   const [drugs, setDrugs] = useState([]);
@@ -10,6 +11,8 @@ const IssueDrugPage = () => {
   const [quantity, setQuantity] = useState(0);
   const [ownerNic, setOwnerNic] = useState("");
   const [petName, setPetName] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedDrugPrice, setSelectedDrugPrice] = useState(0);
 
   useEffect(() => {
     const fetchDrugs = async () => {
@@ -25,6 +28,14 @@ const IssueDrugPage = () => {
 
     fetchDrugs();
   }, []);
+
+  useEffect(() => {
+    // Update the selected drug's price and calculate total
+    const selectedDrug = drugs.find((drug) => drug.id === selectedDrugId);
+    const price = selectedDrug ? parseFloat(selectedDrug.price) : 0;
+    setSelectedDrugPrice(price);
+    setTotalPrice(price * quantity);
+  }, [selectedDrugId, quantity, drugs]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,13 +57,9 @@ const IssueDrugPage = () => {
       setOwnerNic("");
       setPetName("");
       alert("Drug issued successfully");
-      console.log(response.data);
-
-      window.location.reload();
     } catch (error) {
       console.error("Error issuing drug:", error);
-
-      alert("Failed to issue drug please check quantity and try again!");
+      alert("Failed to issue drug. Please check quantity and try again!");
     }
   };
 
@@ -63,13 +70,14 @@ const IssueDrugPage = () => {
         onClick={() => router.push("/")} // Navigate to home
         className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
       >
-        <AiOutlineClose size={24} /> {/* Close icon size */}
+        <AiOutlineClose size={24} />
       </button>
       <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Issue Drug
         </h1>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Drug Selection */}
           <div>
             <label
               htmlFor="drug"
@@ -93,6 +101,19 @@ const IssueDrugPage = () => {
             </select>
           </div>
 
+          {/* Selected Drug Price */}
+          {selectedDrugPrice > 0 && (
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">
+                Price per Unit:
+              </label>
+              <p className="text-gray-800 font-semibold">
+                ${selectedDrugPrice.toFixed(2)}
+              </p>
+            </div>
+          )}
+
+          {/* Quantity */}
           <div>
             <label
               htmlFor="quantity"
@@ -111,12 +132,23 @@ const IssueDrugPage = () => {
             />
           </div>
 
+          {/* Total Price */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">
+              Total Price:
+            </label>
+            <p className="text-gray-800 font-semibold">
+              ${totalPrice.toFixed(2)}
+            </p>
+          </div>
+
+          {/* Owner NIC */}
           <div>
             <label
               htmlFor="ownerNic"
               className="block text-gray-700 font-medium mb-2"
             >
-              Owner NIC:
+              Patient NIC:
             </label>
             <input
               type="text"
@@ -128,6 +160,7 @@ const IssueDrugPage = () => {
             />
           </div>
 
+          {/* Patient Name */}
           <div>
             <label
               htmlFor="petName"
@@ -145,10 +178,11 @@ const IssueDrugPage = () => {
             />
           </div>
 
+          {/* Submit Button */}
           <div className="flex justify-center">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 bg-black text-white font-semibold rounded-md shadow-md "
             >
               Issue Drug
             </button>

@@ -32,7 +32,10 @@ const AsideBar = () => {
       <nav className="flex-1">
         <ul className="space-y-2 mt-30">
           <li>
-            <Link href="/" className={`block p-4 ${getActiveClass("")}`}>
+            <Link
+              href="/"
+              className={`block p-4 border-transparent hover:border-t-2 hover:border-b-2 hover:border-black hover:border-r-4 hover:border-r-black`}
+            >
               Home
             </Link>
           </li>
