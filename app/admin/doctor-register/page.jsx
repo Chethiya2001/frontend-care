@@ -62,6 +62,8 @@ const DoctorRegisterPage = () => {
   const handleUpdate = (nic) => {
     try {
       axios.put(`http://localhost:5001/doctor/${nic}`, formData);
+      console.log(formData);
+      console.log(nic);
       alert("Doctor updated successfully!");
       resetForm();
     } catch (error) {
@@ -98,6 +100,7 @@ const DoctorRegisterPage = () => {
           email: data.email,
           qualifications: data.qualifications,
           contact: data.contact,
+          age: data.age,
           gender: data.gender,
           nic: data.nic,
           password: data.password,
