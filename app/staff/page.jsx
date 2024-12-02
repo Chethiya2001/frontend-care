@@ -33,6 +33,18 @@ const Staffpage = () => {
             <p>Fix Appoimnet</p>
           </div>
         </Link>
+        <Link href="staff/appoiment-history">
+          <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg flex flex-col items-center">
+            <Image
+              src="/care/Book_check_fill.png"
+              alt="Appoimnet History"
+              width={100}
+              height={100}
+              className="mb-4"
+            />
+            <p>Appoimnet History</p>
+          </div>
+        </Link>
         <Link href="/staff/inventrory">
           <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:shadow-lg  flex flex-col items-center">
             <Image
