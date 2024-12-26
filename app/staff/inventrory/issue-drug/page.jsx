@@ -115,7 +115,7 @@ const IssueDrugPage = () => {
                 Price per Unit:
               </label>
               <p className="text-gray-800 font-semibold">
-                ${selectedDrugPrice.toFixed(2)}
+                LKR{selectedDrugPrice.toFixed(2)}
               </p>
             </div>
           )}
@@ -145,7 +145,7 @@ const IssueDrugPage = () => {
               Total Price:
             </label>
             <p className="text-gray-800 font-semibold">
-              ${totalPrice.toFixed(2)}
+              LKR{totalPrice.toFixed(2)}
             </p>
           </div>
 

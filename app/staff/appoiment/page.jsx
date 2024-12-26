@@ -53,7 +53,7 @@ const AddAppoimentpage = () => {
           <div class="details">
             <div><strong>Charge Doctor:</strong> ${doctorCharge}</div>
             <div><strong>Charge Hospital:</strong> ${hospitalCharge}</div>
-            <div><strong>Full Amount:</strong> $${(
+            <div><strong>Full Amount:</strong> LKR${(
               Number(hospitalCharge) + Number(doctorCharge)
             ).toFixed(2)}</div>
           </div>

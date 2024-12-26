@@ -55,13 +55,22 @@ const PatientRegisterPage = () => {
     });
   };
 
-  const handleUpdate = (nic) => {
+  const handleUpdate = async (nic) => {
     try {
-      axios.put(`http://localhost:5001/patient/${nic}`, formData);
-      alert("patient updated successfully!");
+      const response = await axios.put(
+        `http://localhost:5001/patient/${nic}`,
+        formData
+      );
+      console.log(formData);
+      console.log(nic);
+      console.log(response);
+      alert("Patient updated successfully!");
       resetForm();
     } catch (error) {
-      console.error("Error updating patient:", error);
+      console.error(
+        "Error updating patient:",
+        error.response?.data || error.message
+      );
       alert("Error updating patient");
     }
   };
