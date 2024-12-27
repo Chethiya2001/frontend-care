@@ -97,13 +97,6 @@ export default function Login() {
             Cancel
           </button>
         </div>
-
-        <p className="text-center mt-4">
-          Don't have an account?{" "}
-          <a href="/register" className="text-blue-500">
-            Register
-          </a>
-        </p>
       </form>
     </div>
   );
