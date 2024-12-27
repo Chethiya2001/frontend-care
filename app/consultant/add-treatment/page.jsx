@@ -321,13 +321,25 @@ export default function AddTreatmentpage({ searchParams }) {
             <div className="flex mb-4">
               <div className="mr-2 w-full">
                 <label className="block font-bold mb-2">
-                  Medical Prescription
+                  Medical Drescription
                 </label>
                 <input
                   type="text"
                   className="w-full p-2 border rounded-lg"
-                  placeholder="Enter Medical Prescription"
+                  placeholder="Enter Medical Drescription"
                   value={medicalPrescription}
+                  onChange={(e) => setMedicalPrescription(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex mb-4">
+              <div className="mr-2 w-full">
+                <label className="block font-bold mb-2">Prescribe</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-lg"
+                  placeholder="Prescription"
+                  value={prescribe}
                   onChange={(e) => setMedicalPrescription(e.target.value)}
                 />
               </div>
