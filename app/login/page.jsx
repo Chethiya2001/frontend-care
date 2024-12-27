@@ -21,6 +21,7 @@ export default function Login() {
         },
         body: JSON.stringify(formData),
       });
+      console.log("Form Data Sent:", formData);
 
       if (response.ok) {
         const data = await response.json();
